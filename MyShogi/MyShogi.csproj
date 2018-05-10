@@ -477,6 +477,14 @@
     <Compile Include="View\Win2Dx\BoardForm.Designer.cs">
       <DependentUpon>BoardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Win2Dx\Matrix\Matrix3.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Matrix4.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Matrix32.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Matrix43.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Vector2.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Vector3.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Vector4.cs" />
+    <Compile Include="View\Win2Dx\Matrix\Quaternion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
