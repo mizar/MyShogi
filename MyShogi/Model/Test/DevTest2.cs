@@ -533,6 +533,11 @@ namespace MyShogi.Model.Test
                 }.format(pos, m8));
             }
 #endif
+#if true
+            // 疑似3DViewフォームのテスト
+            View.Win2Dx.BoardForm bform = new View.Win2Dx.BoardForm();
+            bform.Show();
+#endif
         }
     }
 }
