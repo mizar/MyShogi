@@ -462,6 +462,9 @@
     <None Include="docs\やねうら王2019の予定.md" />
     <None Include="docs\実装済みの機能.md" />
     <None Include="docs\過去の改修履歴.md" />
+    <EmbeddedResource Include="View\Win2Dx\BoardForm.resx">
+      <DependentUpon>BoardForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
