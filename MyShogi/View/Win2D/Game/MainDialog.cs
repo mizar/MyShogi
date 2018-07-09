@@ -95,10 +95,10 @@ namespace MyShogi.View.Win2D
 
         /// <summary>
         /// [UI thread] : 定期的に呼び出されるタイマー
-        /// 
+        ///
         /// このタイマーは15msごとに呼び出される。
         /// dirtyフラグが立っていなければ即座に帰るのでさほど負荷ではないという考え。
-        /// 
+        ///
         /// 1000ms / 60fps ≒ 16.67 ms
         /// </summary>
         /// <param name="sender"></param>
@@ -132,7 +132,7 @@ namespace MyShogi.View.Win2D
 
         private bool first_tick = true;
 
-        // -- 
+        // --
 
         public void MainDialog_Move(object sender, System.EventArgs e)
         {
@@ -142,6 +142,43 @@ namespace MyShogi.View.Win2D
         private void MainDialog_Resize(object sender, System.EventArgs e)
         {
             UpdateEngineConsiderationDialogLocation();
+        }
+
+        /// <summary>
+        /// https://msdn.microsoft.com/ja-jp/library/cc411206.aspx
+        /// </summary>
+        [System.Runtime.InteropServices.DllImport("user32", SetLastError = true)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        private static extern bool SetWindowPos(System.IntPtr hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
+
+        private void MainDialog_Activated(object sender, System.EventArgs e)
+        {
+            //const int HWND_BOTTOM = 1;
+            //const int HWND_NOTOPMOST = -2;
+            const int HWND_TOP = 0;
+            //const int HWND_TOPMOST = -1;
+
+            const uint SWP_NOSIZE = 0x0001;
+            const uint SWP_NOMOVE = 0x0002;
+            const uint SWP_NOACTIVATE = 0x0010;
+            const uint SWP_SHOWWINDOW = 0x0040;
+            const uint SWP_NOSENDCHANGING = 0x0400;
+
+            // フォーカスを移さずに最前面に持ってくる
+            foreach (var f in new Form[] {
+                debugDialog,
+                aboutDialog,
+                gameSettingDialog,
+                cpuInfoDialog,
+                engineConsiderationDialog,
+                this,
+            })
+            {
+                if (f != null && !f.IsDisposed)
+                {
+                    SetWindowPos(f.Handle, HWND_TOP, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSENDCHANGING | SWP_NOSIZE | SWP_SHOWWINDOW);
+                }
+            }
         }
 
         /// <summary>
