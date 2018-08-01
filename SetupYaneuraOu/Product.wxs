@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="{BAFD2BF3-E82A-4C02-87F3-A0767C140828}" Name="将棋神やねうら王(β版)" Language="1041" Version="0.0.0.4" Manufacturer="MyShogi" UpgradeCode="1ff7952e-4d94-4a70-803d-553c605d0d05" Codepage="932">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="{BAFD2BF3-E82A-4C02-87F3-A0767C140828}" Name="将棋神やねうら王" Language="1041" Version="0.0.6.1" Manufacturer="Mynavi Publishing Corporation / MyShogi Project" UpgradeCode="1ff7952e-4d94-4a70-803d-553c605d0d05" Codepage="932">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Manufacturer="Mynavi Publishing Corporation / MyShogi Project" />
+    <Property Id="ARPCONTACT" Value="Mynavi Publishing Corporation / MyShogi Project" />
     <Property Id="ARPHELPLINK" Value="https://github.com/yaneurao/MyShogi/" />
     <Property Id="ARPURLINFOABOUT" Value="https://book.mynavi.jp/ec/products/detail/id=92007" />
     <Property Id="ARPPRODUCTICON">_15A6C8D5F2B3</Property>
     <Icon Id="_15A6C8D5F2B3" SourceFile="..\MyShogi\bin\Debug\image\YaneuraOu.ico" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate />
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
+    <Condition Message="このセットアップは .NET Framework  バージョン 4.6.1 を必要とします。.NET Framework をインストールして、このセットアップをやり直してください。"><![CDATA[1=WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]></Condition>
     <Feature Id="ProductFeature" Title="SetupYaneuraOu" Level="1">
       <ComponentGroupRef Id="MyShogi.Binaries" />
       <ComponentGroupRef Id="MyShogi.Symbols" />
@@ -100,7 +103,6 @@
       <ComponentRef Id="comp_1A22567D_29BE_42C3_81B0_7DEAF62D2336" />
       <ComponentRef Id="comp_6A8CC7A8_D2D9_4DAF_BB81_719C29BA4216" />
       <ComponentRef Id="comp_369CF060_3AE0_4956_9334_9A251C6DE67E" />
-      <ComponentRef Id="comp_56E9745E_F0F9_4B65_AD2E_0D72BBCC7E01" />
       <ComponentRef Id="comp_BD322E03_B77C_4693_8C41_41C1D40EE9D1" />
       <ComponentRef Id="comp_55563C91_671F_4705_9953_3F623DC2EDBB" />
       <ComponentRef Id="comp_FD280B56_6616_43EE_AC07_2D65CFB503E9" />
@@ -359,6 +361,10 @@
       <ComponentRef Id="comp_79D6FB65_0FB0_4F2D_B0D3_7799041FD900" />
       <ComponentRef Id="comp_8922E3FC_9434_4512_B79F_6F8BDA97BAC4" />
       <ComponentRef Id="comp_626FEAA2_63D5_4A2B_BF15_F31EE75526C8" />
+      <ComponentRef Id="comp_D82C60CE_0EFF_40AF_8C6E_34BA2D27C90B" />
+      <ComponentRef Id="comp_4D9C4501_8778_4A60_BFDD_49B87E8A85E0" />
+      <ComponentRef Id="comp_DA7036E3_CDAF_4BB7_B183_7ED834704712" />
+      <ComponentRef Id="comp_75272EA5_58DB_40AB_89CF_43F2BDE06A94" />
     </Feature>
     <InstallUISequence>
       <Custom Action="ERRCA_UIANDADVERTISED" Sequence="5"><![CDATA[ProductState=1]]></Custom>
@@ -371,7 +377,7 @@
       <Show Dialog="FinishedForm" OnExit="success" />
     </InstallUISequence>
     <CustomAction Id="VSDCA_FolderForm_AllUsers" Property="FolderForm_AllUsers" Value="ALL" />
-    <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[ProgramFilesFolder][Manufacturer]\[ProductName]" Execute="firstSequence" />
+    <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[ProgramFilesFolder]YaneuraOu2018" Execute="firstSequence" />
     <AdminUISequence>
       <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR = ""]]></Custom>
       <Show Dialog="UserExitForm" OnExit="cancel" />
@@ -386,8 +392,9 @@
     <UIRef Id="LicenseDlg" />
     <UIRef Id="FinishedDlg" />
     <UIRef Id="SplashDlg" />
-    <UIRef Id="ReadmeDlg" />
     <UIRef Id="ProgressDlg" />
+    <UIRef Id="FolderDlg" />
+    <UIRef Id="ReadmeDlg" />
     <UI Id="Base">
       <Property Id="VSDNETURLMSG" Value="このセットアップは .NET Framework バージョン [1] を必要とします。.NET Framework をインストールして、このセットアップをやり直してください。.NET Framework は Web から取得できます。今すぐ取得しますか?" />
       <Property Id="VSDIISMSG" Value="このセットアップは Internet Information Server 5.1 かそれ以上を必要とし、加えて Windows XP 以降のバージョンを必要とします。このセットアップは Windows 2000 にインストールすることはできません。Internet Information Server またはより新しいバージョンのオペレーティング システムをインストールして、このセットアップをやり直してください。" />
@@ -682,6 +689,9 @@
         </Component>
         <Component Id="comp_7E3C8BA1_756B_4983_99CB_14D44D447D4D" Guid="F7D228D5-4FFE-42BE-934B-93970F389FF4" Permanent="no" SharedDllRefCount="no" Transitive="no">
           <File Id="_320640BD_1CFB_4823_A0CC_D9A4F188C1FB" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="yaneura_book4.db" Source="..\MyShogi\bin\Debug\book\yaneura_book4.db" KeyPath="yes" />
+        </Component>
+        <Component Id="comp_4D9C4501_8778_4A60_BFDD_49B87E8A85E0" Guid="15223A77-B3C4-4265-B2B1-29BB98E2F790" Permanent="no" SharedDllRefCount="no" Transitive="no">
+          <File Id="_63871E9F_F36B_4485_BD96_EC9705675942" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="yaneura_book2.db" Source="..\MyShogi\bin\Debug\book\yaneura_book2.db" KeyPath="yes" />
         </Component>
       </Directory>
       <Directory Id="dir_A5DB699A_3A9E_4C10_8E8B_DCF71BE4D906" Name="engine">
@@ -1751,8 +1761,11 @@
         <Component Id="comp_369CF060_3AE0_4956_9334_9A251C6DE67E" Guid="358CB13C-A0CE-492C-9517-42E803C383E9" Permanent="no" SharedDllRefCount="no" Transitive="no">
           <File Id="_CBDCAF88_B70B_4C73_B64C_2D3718DBA1AD" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="YaneuraOuLicense.rtf" Source="..\MyShogi\bin\Debug\docs\YaneuraOuLicense.rtf" KeyPath="yes" />
         </Component>
-        <Component Id="comp_56E9745E_F0F9_4B65_AD2E_0D72BBCC7E01" Guid="A66A6008-CABE-4BDE-9B1D-D8A6BF22F550" Permanent="no" SharedDllRefCount="no" Transitive="no">
-          <File Id="_3B7EB864_0BB6_416E_A19F_01717D84FFBE" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="YaneuraOuReadme.rtf" Source="..\MyShogi\bin\Debug\docs\YaneuraOuReadme.rtf" KeyPath="yes" />
+        <Component Id="comp_DA7036E3_CDAF_4BB7_B183_7ED834704712" Guid="BF0EB76F-B557-4BBF-986D-1AFEA218DC92" Permanent="no" SharedDllRefCount="no" Transitive="no">
+          <File Id="_A2DEAA4F_82CD_43B3_9BD0_14E2C0E90BD7" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="gpl.rtf" Source="..\MyShogi\bin\Debug\docs\gpl.rtf" KeyPath="yes" />
+        </Component>
+        <Component Id="comp_75272EA5_58DB_40AB_89CF_43F2BDE06A94" Guid="CF9B48E9-AC2B-43B9-BA1C-DB7E1AA03B07" Permanent="no" SharedDllRefCount="no" Transitive="no">
+          <File Id="_90D286F5_9752_4D35_9175_47A378D3EE5F" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="YaneuraOuReadme.rtf" Source="..\MyShogi\bin\Debug\docs\YaneuraOuReadme.rtf" KeyPath="yes" />
         </Component>
       </Directory>
       <Directory Id="DesktopFolder">
@@ -1764,6 +1777,9 @@
         </Component>
       </Directory>
       <Directory Id="dir_89E74135_E020_41F8_B081_6E1A6364E58D" Name="sources">
+        <Component Id="comp_D82C60CE_0EFF_40AF_8C6E_34BA2D27C90B" Guid="9AF2F53C-0A34-4800-8B1F-6BD429BD26A3" Permanent="no" SharedDllRefCount="no" Transitive="no">
+          <File Id="_974B03D0_5B4A_4A56_A49C_0BC8167470B5" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="gpl.txt" Source="..\MyShogi\bin\Debug\docs\gpl.txt" KeyPath="yes" />
+        </Component>
         <Directory Id="MyShogi.Sources" />
       </Directory>
       <Directory Id="StartMenuFolder">
