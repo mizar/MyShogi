@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+  xmlns="http://schemas.microsoft.com/wix/2006/wi"
+  xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+  xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Bundle
+    Name="将棋神やねうら王"
+    Version="0.0.5.3"
+    Manufacturer="マイナビ出版 / MyShogi Project"
+    IconSourceFile="../MyShogi/bin/Debug/image/YaneuraOu.ico"
+    UpgradeCode="cccced2f-8531-46ce-b342-a0f4c1452a29">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+    <util:RegistrySearch Root="HKLM"
+        Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full"
+        Value="Release" Variable="Net4FullRelease" />
+    <util:RegistrySearch Root="HKLM"
+        Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full"
+        Value="Release" Variable="Net4x64FullRelease" Win64="yes" />
+    <util:RegistrySearch Root="HKLM"
+        Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full\1041"
+        Value="Release" Variable="Net4JPNFullRelease" />
+    <util:RegistrySearch Root="HKLM"
+        Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full\1041"
+        Value="Release" Variable="Net4JPNx64FullRelease" Win64="yes" />
+		<Chain>
+      <!-- TODO: Define the list of chained packages. -->
+      <!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <ExePackage
+        Id="DNET461ENU"
+        Cache="no" Compressed="yes" PerMachine="yes"
+        Permanent="yes" Vital="yes" InstallCommand="/q"
+        DetectCondition="(Net4FullVersion > 379893) AND (NOT VersionNT64 OR (Net4x64FullVersion > 379893))"
+        InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Net4FullVersion > 379893 OR Net4x64FullVersion > 379893))"
+        SourceFile="../SetupYaneuraOu/bin/Release/NDP461-KB3102436-x86-x64-AllOS-ENU.exe" />
+      <ExePackage
+        Id="DNET461JPN"
+        Cache="no" Compressed="yes" PerMachine="yes"
+        Permanent="yes" Vital="yes" InstallCommand="/q"
+        DetectCondition="(Net4JPNFullVersion > 379893) AND (NOT VersionNT64 OR (Net4JPNx64FullVersion > 379893))"
+        InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Net4JPNFullVersion > 379893 OR Net4JPNx64FullVersion > 379893))"
+        SourceFile="../SetupYaneuraOu/bin/Release/NDP461-KB3102436-x86-x64-AllOS-JPN.exe" />
+      <MsiPackage
+        Id="MainPackage"
+        Cache="no"
+        SourceFile="../SetupYaneuraOu/bin/Release/YaneuraOu.msi" />
+		</Chain>
+	</Bundle>
+</Wix>
