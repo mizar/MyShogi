@@ -303,7 +303,7 @@ namespace MyShogi.Model.Shogi.Converter
 
         /// <summary>
         /// KI2(手番文字なし,最終着手/RootPV表示向け)
-        /// 例: 同２三銀右
+        /// 例: ２三同銀右
         /// </summary>
         public static KifFormatterImmutableOptions Ki2Root { get; } = new KifFormatterImmutableOptions(
             BaseFormat.KIF,
@@ -315,11 +315,23 @@ namespace MyShogi.Model.Shogi.Converter
 
         /// <summary>
         /// KI2(▲△手番文字あり,最終着手/RootPV表示向け)
-        /// 例: ▲同２三銀右
+        /// 例: ▲２三同銀右
         /// </summary>
         public static KifFormatterImmutableOptions Ki2CRoot { get; } = new KifFormatterImmutableOptions(
             BaseFormat.KIF,
             ColorFormat.KIF,
+            SquareFormat.FullWidthMix,
+            SamePosFormat.Verbose,
+            FromSqFormat.KI2
+        );
+
+        /// <summary>
+        /// KI2(☗☖手番文字あり,最終着手/RootPV表示向け)
+        /// 例: ☗２三同銀右
+        /// </summary>
+        public static KifFormatterImmutableOptions Ki2CPRoot { get; } = new KifFormatterImmutableOptions(
+            BaseFormat.KIF,
+            ColorFormat.Piece,
             SquareFormat.FullWidthMix,
             SamePosFormat.Verbose,
             FromSqFormat.KI2
