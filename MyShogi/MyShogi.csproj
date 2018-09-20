@@ -210,6 +210,8 @@
     <Compile Include="Model\Test\DevTest2\EvalControlTestForm.Designer.cs">
       <DependentUpon>EvalControlTestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Test\DevTest2\EloRatingTest.cs" />
+    <Compile Include="Model\Test\DevTest2\SpecialFuncTest.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Model\Shogi\Converter\Csa.cs" />
     <Compile Include="Model\Shogi\Converter\Exception.cs" />
