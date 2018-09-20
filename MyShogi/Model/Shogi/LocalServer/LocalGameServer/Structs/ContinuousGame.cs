@@ -207,7 +207,7 @@ namespace MyShogi.Model.Shogi.LocalServer
 
         /// <summary>
         /// 振り駒したときの駒の裏表を表現する。
-        /// 
+        ///
         /// PieceTossPieceColor[x] == trueならx枚目として歩、falseなら「と」を描画。
         /// </summary>
         public bool[] PieceTossPieceColor = new bool[5];
@@ -276,9 +276,9 @@ namespace MyShogi.Model.Shogi.LocalServer
             if (total != 0)
             {
                 var win_rate = WinCount / (float)total;
-                var rating = -400 * Math.Log(1 / win_rate - 1, 10);
-
-                return $"{WinCount}-{DrawCount}-{LoseCount} ({100*win_rate:f1}% R{rating:f1})";
+                // 99.8%信頼区間（片側0.1%, 3.09σ相当）計算
+                var elorange = Common.Math.EloRating.WinLossElo(WinCount, LoseCount, 0.001);
+                return $"{WinCount}-{DrawCount}-{LoseCount} ({elorange.LowWin:0.0%} R{elorange.LowElo:+0.0;-0.0} ～ {elorange.HighWin:0.0%} R{elorange.HighElo:+0.0;-0.0})";
             }
             return $"{WinCount}-{DrawCount}-{LoseCount}";
         }
