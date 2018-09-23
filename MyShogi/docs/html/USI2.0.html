@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!-- Style for Markdown -->
+  <style>
+  .md2html-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .md2html-container > h1:first-child {
+    margin-top: 0;
+  }
+  body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="md2html-container">
+<nav id="TOC">
+<ul>
+<li><a href="#usi-2.0">USI 2.0</a></li>
+<li><a href="#プロトコルの拡張の方針">プロトコルの拡張の方針</a><ul>
+<li><a href="#usiプロトコルで規定されていない部分を新たに規定する">USIプロトコルで規定されていない部分を新たに規定する</a></li>
+<li><a href="#必須オプション項目の追加">必須オプション項目の追加</a></li>
+</ul></li>
+<li><a href="#拡張コマンド決定済みのもの">拡張コマンド(決定済みのもの)</a></li>
+<li><a href="#拡張コマンド議論中">拡張コマンド(議論中)</a></li>
+<li><a href="#拡張コマンド採用しないもの">拡張コマンド(採用しないもの)</a></li>
+<li><a href="#multi-ponderについて">multi ponderについて</a></li>
+<li><a href="#エンジン設定のファイル仕様">エンジン設定のファイル仕様</a></li>
+<li><a href="#かきかけ">かきかけ</a></li>
+</ul>
+</nav>
+<h1 id="usi-2.0">USI 2.0</h1>
+<p>USIプロトコルは、将棋エンジンで幅広く使われているが、現代の将棋エンジンの仕様として問題点が色々あるので、独自に拡張したUSI 2.0というプロトコルを定義する。 - 当面の議論には以下のスレッドを用いる。 - <a href="https://github.com/yaneurao/MyShogi/issues/24">USI2.0の要望/提案</a> - GitHubのissueのところで議論するの、あまり筋が良くないのでいったんcloseしました。また別のところを用意したいと思います。(ブログなど)</p>
+<h1 id="プロトコルの拡張の方針">プロトコルの拡張の方針</h1>
+<ul>
+<li>なるべく後方互換性を保つ。
+<ul>
+<li>例えば、エンジン設定ファイルに「ponderhit時に残り時間を送るように」と書いてあれば、 サーバー側(GUI)から、ponderhit時に残り時間が付与されてやってくる。 思考エンジン側はそれを解釈するが、思考エンジン側は、それが付与されていなくともきちんと(従来通りの)動作をすることを保証する。</li>
+<li>こうなっていれば、思考エンジンは新プロトコルに対応し、新プロトコルの恩恵にあずかりつつも、 従来のUSIプロトコル用の思考エンジンとして振る舞うことも可能である。</li>
+</ul></li>
+<li>思考エンジンの実装者に負担がかかるような拡張はなるべくしない。
+<ul>
+<li>エンジン設定ファイルで、思考エンジン側が受け入れるプロトコル拡張について表明できるので、思考エンジン側として、受け入れたい拡張だけを選択することが出来る。</li>
+</ul></li>
+<li>USIプロトコルの闇の部分を定義する
+<ul>
+<li>USIプロトコルで、明記されておらず、実装依存になっていた部分についてきちんと定義しなおしてやる。MyShogi側では、それらの挙動を保証していく。</li>
+</ul></li>
+</ul>
+<h2 id="usiプロトコルで規定されていない部分を新たに規定する">USIプロトコルで規定されていない部分を新たに規定する</h2>
+<ul>
+<li>エンジン側との入出力、EncodeをUTF8とする。</li>
+<li><p>SJISだと仮定して info stringなどで日本語メッセージ(&quot;↑&quot;など)を送っていたエンジンがあったが、 いまや評価値の&quot;↑&quot;などはlowerboundがサポートされたため用いなくなった。 そのため、エンジン側が日本語を送る機会は多くないはずだし、このタイミングでUTF8に変更しても困るエンジンはないはず。</p></li>
+<li>&quot;setoption&quot;のvalueでInt64型(64-bit 符号付き整数)まで許容することをプロトコル上、保証する。
+<ul>
+<li>いまどきのPCでnode数制限をして探索させようとした時、Int32だと桁が足りないことがあるため。</li>
+</ul></li>
+<li>&quot;isready&quot;のあとのtime out時間は、30秒程度とする。これを超えて、評価関数の初期化、hashテーブルの確保をしたい場合、 思考エンジン側から定期的に何らかのメッセージ(改行可)を送るべきである。(keep alive的な処理)</li>
+<li>ShogiGUIではすでにそうなっているので、MyShogiもそれに追随する。</li>
+<li><p>また、やねうら王のエンジン側は、&quot;isready&quot;を受け取ったあと、&quot;readyok&quot;を返すまで5秒ごとに改行を送るように修正する。</p></li>
+<li>&quot;usinewgame&quot;のあとの(探索中ではないときの)&quot;setoption&quot;コマンドを受付るものとする。
+<ul>
+<li>検討モードにおいてMultiPVの値を途中で変更したいため。</li>
+<li>やねうら王、Aperyなど多くの思考エンジンですでにそうなっている。</li>
+<li>hashは&quot;isready&quot;のタイミングでoptionの値を見て確保するので、setoptionで値を変更しても即座に反映されるわけではないにせよ、setoption自体は有効であるべき。</li>
+</ul></li>
+<li>&quot;info string&quot;のencoding問題
+<ul>
+<li>info stringとして漢字を出力したい場合、そのencodingを決めておかないとGUI側できちんと表示できない。</li>
+<li>GUI側としてはutf8にしたいがそうなっていない思考エンジンがあるので、GUI側の設定で変えられるようにするか、 エンジン設定ファイル(&quot;engine_define.xml&quot;)でencodingを記述するようにすべきか。(検討中)</li>
+</ul></li>
+<li>&quot;isready&quot;の前に&quot;setoption&quot;を送らないといけない問題</li>
+<li>思考エンジンは、&quot;isready&quot;に対して時間のかかる処理(評価関数ファイルの読み込み、置換表の確保・ゼロクリアなど)を行う必要があるが、 評価関数ファイルの存在するフォルダを&quot;setoption&quot;コマンドで受け取りたい場合、isreadyの前に&quot;setoption&quot;が完了している必要がある。</li>
+<li><p>GUI側はこのことを保証しなければならないし、保証するべきである。</p></li>
+<li><p>定跡にhitしたときにbestmoveしか返さない場合、検討モードで使うときにbestmoveの情報しか表示できない。定跡にhitしたときもinfo pv..などで定跡を読み筋として返すことを推奨する。</p></li>
+<li>&quot;info pv..&quot;のUSIで規定されていない文字列の問題。</li>
+<li>pv以下に含まれる文字として以下の文字列を指し手文字列として新たに加える。(やねうら王には以前からサポートしている)
+<ul>
+<li>&quot;win&quot; : 入玉宣言勝ち</li>
+<li>&quot;rep_draw&quot; : 千日手引き分け</li>
+<li>&quot;rep_win&quot; : 千日手勝ち(連続王手の千日手)</li>
+<li>&quot;rep_lose&quot; : 千日手負け</li>
+<li>&quot;rep_sup&quot; : 優等局面</li>
+<li>&quot;rep_inf&quot; : 劣等局面</li>
+<li>&quot;resign&quot; : 投了</li>
+</ul></li>
+<li>&quot;info pv..&quot;なら&quot;pv..&quot;は最後に書け問題。</li>
+<li>&quot;info pv&quot;でUSIで規定されていない文字列を出力するときGUIはそれをそのまま読み筋のところに表示なければならない。 ところが、途中から&quot;score cp xx&quot;とか&quot;nps xx&quot;とかが出現する可能性があると、GUI側はそれら(&quot;score&quot;とか&quot;nps&quot;とか)が 出現しないかを注意深く調べながら、解釈する必要性が出てくるし、pvとして指し手のあとに &quot;score = 50&quot;のような出力も出来なくなる。 (定跡の指し手などについてこういうことがしたいことがなくはない) ゆえに、&quot;info pv..&quot;を送るとき、エンジン側は&quot;info score cp xx pv ..&quot;のように &quot;pv&quot;は一番最後に書いて、pv以下は、読み筋文字列のみにして、 GUI側が解釈できなくなったところ以降はそのまま残りを読み筋ウィンドウに表示されることを想定しておくべきである。</li>
+<li><p>やねうら王、いまこうなっていない。近いうちに、こう修正して、GUI側もこれを前提にしたコードに修正する予定。</p></li>
+<li>&quot;info time XXX&quot;が意味がない問題</li>
+<li><p>info timeで思考エンジンは時間を返すことができるが、GUI側としては、GUI側での計測で何秒かかったかを表示してあるほうが便利であるため、 この値を用いないし、思考エンジンが出力する必要性もないと思うので、GUI側としては出力を必要としない。(出力しても良いが、GUI側では無視する)</p></li>
+<li>&quot;gameover [ win | lose | draw]&quot;だと、対局中断時などに送信すべき文字列が規定されていない。</li>
+<li>対局中断のときは、&quot;gameover unknown&quot;を送るように拡張する。</li>
+<li><p>やねうら王などでは&quot;gameover&quot;文字列は無視しているので影響ないはず。</p></li>
+</ul>
+<h2 id="必須オプション項目の追加">必須オプション項目の追加</h2>
+<ul>
+<li>&quot;MultiPV&quot;というオプション項目を必須とする。
+<ul>
+<li>これがないと検討モードなどで困るため。</li>
+<li>やねうら王、Aperyなど多くの思考エンジンにすでに実装されている。</li>
+</ul></li>
+<li>&quot;Threads&quot;というオプション項目を必須とする。
+<ul>
+<li>いまどきマルチスレッドに対応していない思考エンジンはないため。</li>
+</ul></li>
+<li>&quot;USI_Hash&quot; , &quot;USI_Ponder&quot;はUSIプロトコルの規定では&quot;usi&quot;に対してoptionのリストとして送らなくても良いことになっているが、わざわざオプションを隠し持っているようなエンジン実装は考えられないため、送ることを強制するように変更する。
+<ul>
+<li>&quot;USI_Hash&quot;ではなく、&quot;Hash&quot;を採用しているエンジンがあり(やねうら王、Gpsfishなど)、それに対応するためにもそれらを送ることを前提としないと困る。</li>
+<li>&quot;USI_Hash&quot;ではなく、&quot;Hash&quot;を採用しているなら、&quot;Hash&quot;のほうを送信すれば良いものとする。</li>
+</ul></li>
+</ul>
+<h1 id="拡張コマンド決定済みのもの">拡張コマンド(決定済みのもの)</h1>
+<ul>
+<li>備考 : 思考エンジン設定で拡張を表明したものだけ、サーバー(GUI側)からその拡張に基づいてコマンドが送られてくる。
+<ul>
+<li>表明しなければ、従来通り(従来のUSIプロトコル)で送られてくる。</li>
+<li>ここにある拡張は、思考エンジン側に実装を一切強要しない。思考エンジン側は自由に取捨選択して、自分の望む拡張だけを行うことが出来る。</li>
+</ul></li>
+<li>拡張名 : &quot;GoCommandTimeExtention&quot;
+<ul>
+<li>goコマンドでbyoyomi(秒読み)が先後同じ値になってしまう。相手と自分とは異なる秒読み設定が出来るべきである。</li>
+<li>例) go ... bbyoyomi 1000 wbyoyomi 3000</li>
+<li>思考エンジン側が相手の残り時間を見てタイムマネージメントをしたいとき(現状、そういう処理までしている思考エンジンはあまりないが…)、 相手の秒読み設定がわからないと困るため。</li>
+<li>&quot;go ponder&quot; , &quot;ponderhit&quot;時に残り時間が送られてこない(前者は相手の残り時間が来ない)件、修正すべき。</li>
+</ul></li>
+<li>拡張名 : &quot;UseHashCommandExtension&quot;
+<ul>
+<li>USIプロトコルでは置換表サイズの設定に&quot;USI_Hash&quot;が使われているが、 将棋所は、個別に置換表サイズを設定できないため、思考エンジン側が独自のオプションで 置換表サイズの設定が出来るようにしてあるのが実状である。(やねうら王は、これに該当する。)</li>
+<li>この拡張を有効にすると、GUI側は、思考エンジンに対して&quot;USI_Hash&quot;の代わりに&quot;Hash&quot;を送信する。</li>
+<li>この拡張を用意することにより、GUI側からやねうら王のようなエンジンに対してHashの設定が透過的に出来るようになる。</li>
+</ul></li>
+</ul>
+<h1 id="拡張コマンド議論中">拡張コマンド(議論中)</h1>
+<ul>
+<li>手数が伸びてきたときに、初期局面から毎回エンジンに送るのは無駄であって、前回局面の続き(最大2手)を送れば十分である。&quot;posdiff move1 move2&quot;
+<ul>
+<li>前回の局面は削除していないはずであるから、実装は難しくないはず。</li>
+<li>あまり仕様として美しくないか…。なくすか考え中。</li>
+</ul></li>
+</ul>
+<h1 id="拡張コマンド採用しないもの">拡張コマンド(採用しないもの)</h1>
+<ul>
+<li>思考エンジンは&quot;usi&quot;→&quot;usiok&quot;に引き続き、&quot;usiversion&quot;に対して&quot;2.0&quot;のようにUSIプロトコルのサポートしているバージョンを返す。
+<ul>
+<li>これなくしたほうが良いのでは。エンジン設定ファイル(&quot;engine_define.xml&quot;)のほうで可能な限り記述するようにして、 思考エンジンに無駄な実装負担をかけないのが今風なのではないかと…。</li>
+<li>→　なくす。</li>
+</ul></li>
+</ul>
+<h1 id="multi-ponderについて">multi ponderについて</h1>
+<ul>
+<li>multi ponderについてはGUI側で対応する予定。(思考エンジン側、プロトコル側の修正はなくて済む予定)
+<ul>
+<li>例) GUI側の設定で&quot;multi ponder 5&quot;になっていれば5つのインスタンスを生成して、指定秒(通例0.1秒とか)だけ 1つ目のインスタンスでMultiPV 5で探索して、5つの候補手を得て、それらに対して、5つのインスタンスで&quot;go ponder&quot;する。 そのあとponderhitしたインスタンスに対してだけ&quot;ponderhit&quot;を送信して、残りのインスタンスにはstopを送る。</li>
+</ul></li>
+</ul>
+<h1 id="エンジン設定のファイル仕様">エンジン設定のファイル仕様</h1>
+<ul>
+<li>エンジンが評価関数のために消費するメモリ量、エンジンの棋力、バナー、CPU別の実行ファイル名などを記述する必要がある。
+<ul>
+<li>ファイル名 : &quot;engine_define.xml&quot; エンジンの実行ファイルと同じフォルダに入れる</li>
+<li>エンジン自体は、GUI配下のengine/フォルダにエンジン別にフォルダを作成して入れるものとする。</li>
+</ul></li>
+<li>&quot;engine_define.xml&quot;の仕様
+<ul>
+<li>MyShogi.Model.Shogi.EngineDefine/EngineDefine.csにあるclass EngineDefineをXmlSerializerでシリアライズしたもの。</li>
+<li>シリアライズ/デシリアライズの手順は同ファイル内にある。</li>
+</ul></li>
+<li>&quot;engine_define.xml&quot;の編集ツール
+<ul>
+<li>engine_define.xmlを手で書くのは少し面倒なので(xml形式なのでテキストエディタでも出来なくはないが…)、MyShogiのほうに編集用のダイアログを用意しようと思っている。</li>
+<li>エンジン追加は、従来ソフトのようにメニュー上からエンジンを追加するのではなく、このengine_define.xmlを思考エンジンのフォルダに生成して配置してやることで エンジン追加扱いとされるようにしようと思っている。</li>
+</ul></li>
+</ul>
+<h1 id="かきかけ">かきかけ</h1>
+<ul>
+<li>かきかけ</li>
+</ul>
+  </div>
+</body>
+</html>

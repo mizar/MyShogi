@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!-- Style for Markdown -->
+  <style>
+  .md2html-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .md2html-container > h1:first-child {
+    margin-top: 0;
+  }
+  body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="md2html-container">
+<nav id="TOC">
+<ul>
+<li><a href="#maclinuxで動作させるには">Mac、Linuxで動作させるには？</a><ul>
+<li><a href="#ビルドする上で注意点">ビルドする上で注意点</a></li>
+<li><a href="#将棋神やねうら王をmacで">将棋神やねうら王をMacで</a></li>
+<li><a href="#将棋神やねうら王をlinuxで">将棋神やねうら王をLinuxで</a></li>
+<li><a href="#monoのバグ">Monoのバグ</a></li>
+<li><a href="#音声画像素材について">音声・画像素材について</a></li>
+<li><a href="#思考エンジンについて">思考エンジンについて</a><ul>
+<li><a href="#思考エンジンのコンパイル手順">思考エンジンのコンパイル手順</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="maclinuxで動作させるには">Mac、Linuxで動作させるには？</h1>
+<ul>
+<li><p>MyShogi V1.32ではコードの修正なしにMonoでコンパイルでき、Mac/Linuxで動作するはずです。</p></li>
+<li>参考記事(古い記事も含まれています)</li>
+<li>MyShogiをMac環境で動かす
+<ul>
+<li>jnoryさんのfork : https://github.com/jnory/MyShogi</li>
+<li>AI将棋ソフト『MyShogi』をMacBookProでビルド＆遊んでみた : https://amado.hatenablog.com/entry/20180927/1537975944</li>
+<li>AI将棋ソフト『MyShogi』をMacBookProでビルド＆遊んでみた２（本家版） : https://amado.hatenablog.com/entry/20181028/1540723499</li>
+</ul></li>
+<li>MyShogiをLinux環境で動かす
+<ul>
+<li>やねうら王MyShogiをLinuxでビルドしてみた : http://hennohito.cocolog-nifty.com/blog/2018/06/myshogilinux-69.html</li>
+<li>Ubuntuで『将棋神　やねうら王』 : http://fxst24.blog.fc2.com/blog-entry-545.html</li>
+</ul></li>
+</ul>
+<h2 id="ビルドする上で注意点">ビルドする上で注意点</h2>
+<ul>
+<li>Monoのコンパイラ(mcs)が現状C#7.2までしか対応しておらず、本プロジェクトではC#7.3をターゲットとしているので、そのままだとコンパイルが通りません。</li>
+<li>MsBuildでビルドすると例外が出たときに行番号が表示されなくて困るのですが、mcsはまだC#7.2までしか対応していないのでビルドできません。</li>
+<li>mcsがC#7.3まで対応したら、mcsでビルドするようにすべきだと思います。</li>
+</ul>
+<h2 id="将棋神やねうら王をmacで">将棋神やねうら王をMacで</h2>
+<ul>
+<li><p>Monoのコンパイラが動くようにする。(上の「AI将棋ソフト『MyShogi』をMacBookProでビルド＆遊んでみた」を参考に)</p></li>
+<li><p>git clone &gt; git clone https://github.com/yaneurao/MyShogi.git</p></li>
+<li><p>ビルド方法 &gt; msbuild MyShogi.sln /p:Configuration=macOS</p></li>
+<li><p>起動方法 &gt; mono --arch=32 MyShogi/bin/macOS/MyShogi.exe</p></li>
+<li>(V1.30) 表示設定のフォント選択ダイアログがフリーズするらしいです。(Linuxだとこの問題は起きない) Mac用のMonoのバグではないかと…。</li>
+<li>(V1.32) libsoundioを用いて音が鳴るようになりました。サウンド再生のために別途以下のライブラリが必要です。 https://github.com/jnory/MyShogiSoundPlayer/releases/</li>
+<li>(V1.32) 棋譜ウインドウ、常に現在の局面が選択されている状態にしたいのですが、ListViewのOwnerDraw、Monoでバグるのでいまのところ実現できないです。</li>
+<li>(V1.32) 棋譜ウインドウ、メインウインドウに埋め込み状態からフロート状態に変更したときに再描画されません。
+<ul>
+<li>DockStyleの変更によってresizeイベント起きないというMonoのbugです。回避が難しいので、 そのあと棋譜ウインドウをリサイズして再描画を促すか、再起動するかしてください。</li>
+<li>検討ウインドウ、メインウインドウに埋め込んでいると再描画されないことがあるようです。気になる人はフロート状態で使ってみてください。</li>
+</ul></li>
+<li><p>すべての機能を動作確認できているわけではありません。</p></li>
+<li>参考)</li>
+<li><p>『将棋神やねうら王』のMac対応の作業報告 : http://yaneuraou.yaneu.com/2018/09/30/%E3%80%8E%E5%B0%86%E6%A3%8B%E7%A5%9E%E3%82%84%E3%81%AD%E3%81%86%E3%82%89%E7%8E%8B%E3%80%8F%E3%81%AEmac%E5%AF%BE%E5%BF%9C%E3%81%AE%E4%BD%9C%E6%A5%AD%E5%A0%B1%E5%91%8A/</p></li>
+</ul>
+<h2 id="将棋神やねうら王をlinuxで">将棋神やねうら王をLinuxで</h2>
+<ul>
+<li><p>ビルド方法 &gt; msbuild MyShogi.sln /p:Configuration=LINUX</p></li>
+<li><p>起動方法 &gt; MyShogi/bin/LINUX/MyShogi.exe</p></li>
+<li>その他、依存ライブラリ</li>
+<li>棋譜のクリップボードへのコピー、クリップボードからのペーストには、xclipが/usr/bin/xclipにインストールされている必要があります。</li>
+<li>サウンド再生は、Mac用と同じく、libsoundioをwrapしたjnoryさんのライブラリ(実行ファイル)に依存します。
+<ul>
+<li>https://github.com/jnory/MyShogiSoundPlayer/releases/tag/v0.1.2</li>
+<li>このバージョンでUbuntu18.04で正常に音声が再生されることを確認しました。</li>
+</ul></li>
+<li><p>詳細は上の「将棋神やねうら王をMacで」を参考にしてください。</p></li>
+<li>Ubuntuで『将棋神　やねうら王』 : http://fxst24.blog.fc2.com/blog-entry-545.html</li>
+<li><p>(V1.32) この手順でHyper-V + Ubuntu18.04で動作することを確認しました。[2018/10/23 14:30]</p></li>
+</ul>
+<h2 id="monoのバグ">Monoのバグ</h2>
+<ul>
+<li>Mono(Mac/Linux共通)</li>
+<li>ListViewのEnsureVisibleで例外が出る。Visible=falseのときにスクローバーの高さの計算を間違うようだ。
+<ul>
+<li>Visible=falseのときはEnsureVisibleを呼び出さないようにして回避。</li>
+</ul></li>
+<li>GDI+でalpha channelのある画像の転送でゴミが出る。(alpha = 0の部分の画像の転送がおかしい)
+<ul>
+<li>自前で転送するコードを書いて回避。</li>
+</ul></li>
+<li>Graphics.DrawImage()で転送元が半透明かつ、転送先がCreateBitmap()したBitmapだと転送元のalphaが無視される
+<ul>
+<li>転送先が24bppRgbだとこの問題が出るようなので、Monoの時だけ転送先を32bppArgbに変更して回避。</li>
+</ul></li>
+<li>Mono(Mac)</li>
+<li><p>ファイルダイアログを出すところでフリーズ。回避しようがないのであぼーん。</p></li>
+<li>Mono(Linux)</li>
+<li>ListViewExでOwnerDrawにすると無限再帰になってメッセージの処理ができなくなる。これもMono(Linux)のバグくさい。Macではどうだかわからない。
+<ul>
+<li>DrawSubItemのイベントで描画したときに画面が汚れた判定になっていて、再描画イベントがまた飛んでくるのがおかしい。</li>
+<li>これのせいでメッセージを処理できなくなり、メニューなどが描画されない。</li>
+<li>MonoのときだけListViewのOwnerDrawで描画するのをやめる。</li>
+</ul></li>
+<li>メニューの「設定」の項目から右側の項目、文字フォントの変更が反映していない。
+<ul>
+<li>MenuStripにぶらさげているToolStripMenuItemの、ambient propertyになっているFont、親のFontが反映しないバグ。</li>
+<li>自前ですべてにフォントを設定することで回避。</li>
+</ul></li>
+<li>棋譜ウインドウをフロートに変更したときに再描画されない。
+<ul>
+<li>DockStyleの変更によってresizeイベント起きないというMonoのbugのため。回避が難しいので、とりま放置。</li>
+</ul></li>
+</ul>
+<h2 id="音声画像素材について">音声・画像素材について</h2>
+<ul>
+<li><p>音声・画像素材など足りない素材は『将棋神やねうら王』のインストール先フォルダからコピーしてきてください。(そのうち整理して公開する予定です)</p></li>
+<li>フリーの画面素材 : https://github.com/jnory/MyShogi</li>
+<li>フリーの音声素材 : https://github.com/matarillo/MyShogiSound cf. https://twitter.com/matarillo/status/1053131190163533825</li>
+<li><p>その他、足りない素材は、『将棋神やねうら王』のUpdaterのなかに入っているかも。</p></li>
+</ul>
+<h2 id="思考エンジンについて">思考エンジンについて</h2>
+<ul>
+<li><p>『将棋神やねうら王』の各思考エンジンをMac/Linux上でコンパイルする必要があります。 (Windows向けの実行ファイルをそのまま動かすことは出来ません)</p></li>
+<li>『tanuki-2018』 → NNUE型</li>
+<li>『tanuki- SDT5』,『Qhapaq 2018』『読み太 2018』→ KPPT型</li>
+<li>『やねうら王 2018』→ KKPT型</li>
+<li><p>『tanuki-詰将棋』→ MATE_ENGINE の4種類あります。</p></li>
+</ul>
+<h3 id="思考エンジンのコンパイル手順">思考エンジンのコンパイル手順</h3>
+<ul>
+<li>やねうら王のmakefileを用いてclangでコンパイルします。</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">avx2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span></code></pre></div>
+<pre><code>YaneuraOu-by-gcc.exeというファイルが出来ますので、これをMyShogi.exe配下の以下のところにコピーします。
+  engine/tanuki2018/YaneuraOu2018NNUE_avx2.exe
+
+以下、各CPUのファイルをビルドする例です。</code></pre>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">avx2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_avx2</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">sse42</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_sse42</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">sse41</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_sse41</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">sse2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_sse2</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">tournament</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_tournament</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">evallearn</span> <span class="fu">COMPILER</span>=<span class="fu">g</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_learn_avx2</span>.<span class="fu">exe</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">evallearn</span>-<span class="fu">sse42</span> <span class="fu">COMPILER</span>=<span class="fu">g</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_learn_sse42</span>.<span class="fu">exe</span></code></pre></div>
+<p>// 32bit環境向け</p>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">nosse</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_TNK_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki2018</span>/<span class="fu">YaneuraOu2018NNUE_nosse</span>.<span class="fu">exe</span></code></pre></div>
+<p>// KPPT型、AVX2用にコンパイルする例</p>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_OTAFUKU_ENGINE_KPPT</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">avx2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_OTAFUKU_ENGINE_KPPT</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">yomita2018</span>/<span class="fu">YaneuraOu2018KPPT_avx2</span>.<span class="fu">exe</span></code></pre></div>
+<p>// KKPT型、AVX2用にコンパイルする例</p>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_OTAFUKU_ENGINE_KPP_KKPT</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">avx2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">YANEURAOU_2018_OTAFUKU_ENGINE_KPP_KKPT</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">yaneuraou2018</span>/<span class="fu">Yaneuraou2018_kpp_kkpt_avx2</span>.<span class="fu">exe</span></code></pre></div>
+<p>// tanuki-詰将棋エンジンをAVX2用にコンパイルする例</p>
+<div class="sourceCode"><pre class="sourceCode cmake"><code class="sourceCode cmake"><span class="fu">mingw32</span>-<span class="fu">make</span> <span class="fu">clean</span> <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">MATE_ENGINE</span>
+<span class="fu">mingw32</span>-<span class="fu">make</span> -<span class="fu">j8</span> <span class="fu">avx2</span> <span class="fu">COMPILER</span>=<span class="fu">clang</span>++ <span class="fu">YANEURAOU_EDITION</span>=<span class="fu">MATE_ENGINE</span>
+<span class="fu">cp</span> <span class="fu">YaneuraOu</span>-<span class="fu">by</span>-<span class="fu">gcc</span>.<span class="fu">exe</span> <span class="fu">XXX</span>/<span class="fu">engine</span>/<span class="fu">tanuki_mate</span>/<span class="fu">2018</span>-<span class="fu">Otafuku</span>/<span class="fu">tanuki_mate_avx2</span>.<span class="fu">exe</span></code></pre></div>
+  </div>
+</body>
+</html>

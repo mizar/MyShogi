@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!-- Style for Markdown -->
+  <style>
+  .md2html-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .md2html-container > h1:first-child {
+    margin-top: 0;
+  }
+  body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="md2html-container">
+<nav id="TOC">
+<ul>
+<li><a href="#やねうら王-2019仮の予定">『やねうら王 2019(仮)』の予定</a><ul>
+<li><a href="#商品名の候補">商品名の候補</a></li>
+<li><a href="#駒盤面素材の追加">駒・盤面素材の追加</a></li>
+<li><a href="#音声素材について">音声素材について</a></li>
+<li><a href="#棋力調整棋力の範囲について">棋力調整・棋力の範囲について</a></li>
+<li><a href="#将棋神やねうら王を持っている人へのサポート">『将棋神やねうら王』を持っている人へのサポート</a></li>
+<li><a href="#収録エンジンについて">収録エンジンについて</a></li>
+<li><a href="#定跡編集機能">定跡編集機能</a></li>
+<li><a href="#戦型囲いの完成時のエフェクト">戦型・囲いの完成時のエフェクト</a></li>
+<li><a href="#戦型指定機能">戦型指定機能</a></li>
+<li><a href="#思考エンジンの強化">思考エンジンの強化</a></li>
+<li><a href="#エンジンでの検討機能の強化">エンジンでの検討機能の強化</a></li>
+<li><a href="#multi-consideration">multi consideration</a></li>
+<li><a href="#詰将棋エンジン">詰将棋エンジン</a></li>
+<li><a href="#指導対局機能">指導対局機能</a></li>
+<li><a href="#棋力判定レーティング対局">棋力判定～レーティング対局</a></li>
+<li><a href="#蠱毒">蠱毒</a></li>
+<li><a href="#チャレンジクエスト">チャレンジ・クエスト</a></li>
+<li><a href="#sns連携">SNS連携</a></li>
+<li><a href="#局面共有sns">局面共有SNS</a></li>
+<li><a href="#チュートリアル">チュートリアル</a></li>
+<li><a href="#通信対局">通信対局</a></li>
+<li><a href="#ローカライズ">ローカライズ</a></li>
+<li><a href="#カメラ画像からの将棋盤入力">カメラ画像からの将棋盤入力</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="やねうら王-2019仮の予定">『やねうら王 2019(仮)』の予定</h1>
+<ul>
+<li>これは、2019年にマイナビから発売する予定の『やねうら王 2019(仮)』についてのアイデアのメモです。</li>
+<li>発売することは確定ではありません。あくまで企画を練っている段階です。</li>
+<li>誰かに対して、この内容の実現をお約束するものではありません。あくまでアイデアを書いているだけです。</li>
+</ul>
+<h2 id="商品名の候補">商品名の候補</h2>
+<ul>
+<li>『将棋神 やねうら王２』</li>
+<li>激指みたく素直なナンバリングにしていくのが無難</li>
+<li>『将棋神 やねうら王2019』</li>
+<li>『将棋神 やねうら王 2nd』</li>
+<li>『将棋天空神 やねうら王』</li>
+<li>この名前、悪くないのだが続編のネーミングに困りそう。将棋天空神２か？</li>
+</ul>
+<h2 id="駒盤面素材の追加">駒・盤面素材の追加</h2>
+<ul>
+<li>駒素材を追加したい</li>
+<li>「水無瀬」書体(ohtaroさんからの要望)</li>
+<li>関東名人駒の「宗歩好」(mowakaさんからの要望)</li>
+</ul>
+<h2 id="音声素材について">音声素材について</h2>
+<ul>
+<li><p>『将棋神やねうら王』では時間がなくて激指の音声素材をそのまま使っていたので、このへん、もっとクオリティの高いものを収録したい。</p></li>
+<li>女流棋士3人分ぐらい収録したい</li>
+<li>切り替えしたり、読み上げ・秒読みそれぞれ誰にするか選べたりするようにしたい。</li>
+<li><p>指導対局のときの女流棋士の画像などと併せて収録したい考え。</p></li>
+</ul>
+<h2 id="棋力調整棋力の範囲について">棋力調整・棋力の範囲について</h2>
+<ul>
+<li>『将棋神やねうら王』ではCPUの棋力として九段～10級まで出来るようになったが、下の方の段位は自然な弱さとは言い難いものがあった。</li>
+<li>StockfishのSkillLevelを実装して、計測・調整を行うことによって、自然な弱さを実現する。</li>
+<li>『将棋神やねうら王』 Update2で実現した。</li>
+<li>将棋倶楽部24の10級は町道場の初段ぐらいあるので、将棋倶楽部24での15級ぐらいまで用意する。</li>
+<li>上の方の棋力は、十一段ぐらいまではいまどきのPCならば即指し(1秒以内)になると思われるので、十段(R3400)、十一段(R3600)のプリセットを用意する。</li>
+<li>『将棋神やねうら王』Update1で「十二段」まで選べるようにした。[2018/09/03]</li>
+<li>次回作では「十三段」「十四段」あたりも欲しい気が。</li>
+</ul>
+<h2 id="将棋神やねうら王を持っている人へのサポート">『将棋神やねうら王』を持っている人へのサポート</h2>
+<ul>
+<li>『将棋神やねうら王』の評価関数フォルダを統合する機能を用意する。</li>
+<li><p>『将棋神やねうら王』の評価関数フォルダを本ソフトの評価関数として追加できる機能を用意する。</p></li>
+<li><p>これにより、本ソフトの思考エンジンと前回の思考エンジンとの対局なども出来るようになるし、思考エンジンを集めて遊ぶというコレクション的な 価値も生み出すことが出来る。</p></li>
+</ul>
+<h2 id="収録エンジンについて">収録エンジンについて</h2>
+<ul>
+<li>未定。</li>
+<li>SDT6,WCSC29の上位ソフトを5本程度収録したい考え。</li>
+</ul>
+<h2 id="定跡編集機能">定跡編集機能</h2>
+<ul>
+<li>『将棋神やねうら王』には定跡編集機能がなかったが、定跡編集の機能を持たせる。</li>
+<li>また、コンピュータが対局結果から定跡を自動学習するような機能を持たせる。一度遭遇した局面は定跡に登録して即指し出来るようにする。</li>
+<li>Bonanza、柿木将棋の定跡ファイルのコンバート機能を持たせる(検討中)</li>
+<li>やねうら王の定跡生成コマンド(makebookコマンド)をGUIから設定して呼び出せるようにする。</li>
+</ul>
+<h2 id="戦型囲いの完成時のエフェクト">戦型・囲いの完成時のエフェクト</h2>
+<ul>
+<li>将棋ウォーズにあるような戦型・囲いの完成度のエフェクト追加</li>
+<li>人間が指して、表示されたエフェクトをコレクションしていくような機能があると面白い。</li>
+</ul>
+<h2 id="戦型指定機能">戦型指定機能</h2>
+<ul>
+<li>居飛車・振飛車だけでなく細かな戦型選択が出来るように</li>
+<li>思考エンジン側の対応は難しいので、GUI側が膨大な定跡を持っておいて、それを使って指定戦型に誘導する。</li>
+<li>定跡自体は、戦型判別機能が実装されていれば、MultiPV10とかで作った定跡に対して、戦型判別して、その戦型に至る指し手のみを 選択することが可能となる…はず。各種戦型用の定跡、みたいなのを作る感じ。あるいは、定跡の指し手に対して、戦型Xに至る指し手はこれとこれ、 みたいなマーカーをつけていくか。</li>
+<li>その戦型になりやすさという尺度を入れたほうがよさげ。</li>
+<li>技巧には戦型選択の機能があるので参考にする。</li>
+<li>『将棋神やねうら王』のUpdate5あたりで対応するかも。</li>
+</ul>
+<h2 id="思考エンジンの強化">思考エンジンの強化</h2>
+<ul>
+<li>R4000→R4200 昨年のソフトに7,8割勝つ強さ (に開発者たちの努力によりなっていると思われる)</li>
+</ul>
+<h2 id="エンジンでの検討機能の強化">エンジンでの検討機能の強化</h2>
+<ul>
+<li>ShogiGUIのように矢印で指し手を図示する機能</li>
+<li>もう少し良い視覚化の手段が欲しい。候補手とそれに対する期待勝率を表示するとして、移動元の表現が将棋では難しいんだな。</li>
+</ul>
+<h2 id="multi-consideration">multi consideration</h2>
+<ul>
+<li>詰将棋エンジンを含む複数エンジンでの同時検討機能</li>
+<li>multi ponderも実装したい</li>
+</ul>
+<h2 id="詰将棋エンジン">詰将棋エンジン</h2>
+<ul>
+<li>『将棋神やねうら王』ではおまけ的存在の位置付けであったが、改良を重ね、長編詰将棋が解けることもアピールしていきたい。</li>
+</ul>
+<h2 id="指導対局機能">指導対局機能</h2>
+<ul>
+<li>指した瞬間にPerfect , Great , Good , Badなどを表示できると面白い。</li>
+<li>局後に悪かった指し手を日本語文で解説してくれると上達の助けになるのでそういう機能をつけられるものならつけたい。(cf.「将棋山脈」)</li>
+<li>感想戦機能として、対局後の音声解説みたいなのが実現できると面白い。</li>
+<li>激指14にある「ここで相手の形を乱す好手があります」のような。</li>
+<li>https://book.mynavi.jp/shogi/detail/id=71273</li>
+<li>MultiPVの上位の指し手の移動先の升をヒートマップみたいなもので示すなどすればヒント機能として面白いのではなかろうか。</li>
+</ul>
+<h2 id="棋力判定レーティング対局">棋力判定～レーティング対局</h2>
+<ul>
+<li>自分の棋力を棋譜から判定してくれる機能</li>
+<li>自分の棋力に合うようにコンピューターの棋力を調整してくれる機能</li>
+<li>接待モード機能</li>
+</ul>
+<h2 id="蠱毒">蠱毒</h2>
+<ul>
+<li>リーグ戦機能みたいなもの。</li>
+<li>複数のエンジン、プリセット、対局条件、開始局面などを選んで対局させておける。</li>
+<li>エンジンの思考時間をランダム化する機能など(これにより指し手がばらける)</li>
+<li>特定局面から指しついだときの先手勝率、後手勝率を調べたり、エンジンのレーティングを計測したりするのに使える。</li>
+</ul>
+<h2 id="チャレンジクエスト">チャレンジ・クエスト</h2>
+<ul>
+<li>指定局面の指定段位のCPUと対局して勝ち切るとクリア。それが25問 × 10枚ぐらい。</li>
+<li>25問が、5×5のジグソーパズルのようになっていて、クリアするとそこの画像が表示されていき、25問解いた時点で何らかの画像が見えると嬉しい。</li>
+<li>詰将棋は自動作問・本将棋のほうも、CPU同士の対局などから自動的に作問できると面白い。</li>
+<li>事前に用意した局面ではないなら、評価値、+500～1000ぐらいのところからCPU相手に勝ち切るというチャレンジが良いかも。</li>
+<li>難度をうまく調整するためには事前に用意するほうが好ましいな…。</li>
+<li>例えば初段向けの問題であれば、CPU側を9段、人間側を初段ぐらいに設定して、人間側が5割ぐらいの使用率で勝ちきれる難度が好ましいので…。</li>
+</ul>
+<h2 id="sns連携">SNS連携</h2>
+<ul>
+<li>勝ったときに棋譜をツイートする機能とか</li>
+</ul>
+<h2 id="局面共有sns">局面共有SNS</h2>
+<ul>
+<li>詰将棋や指定局面を思考エンジン名とプリセット、コメントを指定して投稿でき、それを皆で共有できると面白い。</li>
+<li>「ここから勝ちきってみろよ」みたいな感じ。</li>
+<li>マリオメーカーのように、クリア率 0.08%だとか、作者の他の作品を見るだとか、ランキングだとか、そういう感じで楽しめると面白い。</li>
+<li>優秀作品の投稿者を表彰する仕組みがあるとなお良し。</li>
+<li>オンラインでクエストなどを解いていくと、仮想通貨やねコイン(通称、やねこ)が貯まる。</li>
+<li>やねこを使って将棋ウォーズの棋神券みたいなものを購入したり、次回作を割引き購入できるなど何らかの特典があると面白い。</li>
+<li>マイナビの週刊将棋の詰将棋問題などを定期的に公式からの投稿として投稿していければ楽しい。</li>
+</ul>
+<h2 id="チュートリアル">チュートリアル</h2>
+<ul>
+<li>操作などチュートリアルを用意して、「XXの操作をする」に応じて、やねこ付与</li>
+</ul>
+<h2 id="通信対局">通信対局</h2>
+<ul>
+<li>考え中</li>
+<li>floodgate参加、ネットワーク対局、AWSにエンジンを置いてのリモート対局、etc…。</li>
+</ul>
+<h2 id="ローカライズ">ローカライズ</h2>
+<ul>
+<li>英語版</li>
+<li>メッセージだけでなく画面素材も差し替えが必要</li>
+</ul>
+<h2 id="カメラ画像からの将棋盤入力">カメラ画像からの将棋盤入力</h2>
+<ul>
+<li>スマホで撮影した将棋盤の画像から駒の配置を読み取る機能</li>
+<li>カメラ付きのタブレット端末(Windows)で便利かも。</li>
+<li>将来的にスマホ対応にするときにこの機能があると役立ちそう。</li>
+</ul>
+  </div>
+</body>
+</html>

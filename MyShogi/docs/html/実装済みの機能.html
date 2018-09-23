@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!-- Style for Markdown -->
+  <style>
+  .md2html-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .md2html-container > h1:first-child {
+    margin-top: 0;
+  }
+  body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="md2html-container">
+<nav id="TOC">
+<ul>
+<li><a href="#実装済みの機能">実装済みの機能</a></li>
+</ul>
+</nav>
+<h1 id="実装済みの機能">実装済みの機能</h1>
+<ul>
+<li>盤面表示
+<ul>
+<li>1文字駒、2文字駒、英文字駒</li>
+<li>成り駒、朱色と黒のものを選択可能</li>
+<li>畳・盤画像の変更</li>
+<li>筋・筋の表示をチェス方式に変更</li>
+<li>盤面反転機能</li>
+<li>最終手の移動先の升の背景色、メニューからの色変更</li>
+<li>最終手の移動元の升の背景色、メニューからの色変更</li>
+<li>レスポンシブ対応(メインウインドウのリサイズに応じて対局盤面を自動調整)、低アスペクト表示モード(縦長の駒台)</li>
+<li>駒の移動方角を示すマーカー(初心者向け)</li>
+<li>駒のドラッグでの移動、クリックでの移動</li>
+<li>駒を掴んだ時に移動出来ない升を暗くする</li>
+</ul></li>
+<li>対局機能
+<ul>
+<li>マウス2点クリックによる駒の移動、マウスドラッグによる駒の移動</li>
+<li>いまどきの将棋アプリにあるような成り・不成・キャンセルのダイアログ</li>
+</ul></li>
+<li><p>対局開始時、対局終了時などの画面エフェクト</p></li>
+<li>ToolStripによるショートカット
+<ul>
+<li>「投」投了ボタン、「中」中断ボタン、「待」待ったボタン、「急」思考エンジンにすぐ指させるボタン</li>
+<li>「◀」開始局面に戻るボタン 「◁」一手進める 「▷」一手戻す、「▶」末尾の局面に進むボタン、「本」本譜に戻るボタン</li>
+</ul></li>
+<li>棋譜表示ウィンドウ
+<ul>
+<li>KIF2形式に近い、わかりやすい棋譜の表示(CSA形式、SFEN形式も選択可能)</li>
+<li>時間、分、秒の形式での消費時間表示</li>
+<li>分岐棋譜の操作(次分岐ボタン、分岐の消去ボタン、本譜に戻るボタン)、1手消すボタン。</li>
+<li>対局していない時に棋譜ウィンドウの行選択でその局面に移動できる</li>
+<li>対局していない時、盤上の駒を動かすと棋譜分岐が自動的に作成される機能</li>
+</ul></li>
+<li>メインウインドウへの埋め込み、Dock、追随機能</li>
+<li><p>文字フォントサイズの変更(別ウインドウ時)</p></li>
+<li>対局設定ウィンドウ
+<ul>
+<li>対局時間設定、Byoyomi、IncTime対応</li>
+<li>持ち時間に秒の単位まで設定できる。</li>
+<li>対局時間を先後個別に設定できる。</li>
+<li>時間切れを負けにする/しないを先後個別に設定できる。</li>
+<li>対局時間無制限に出来る。</li>
+<li>中断局の再開</li>
+<li>手数で引き分けにする設定</li>
+</ul></li>
+<li>プリセット(十二段～10級) (商用版のみ)</li>
+<li>コンピューターが一手に必ずX秒使うオプション</li>
+<li>Shogi960
+<ul>
+<li>cf. Shogi960について考えてみた : http://yaneuraou.yaneu.com/2018/11/01/shogi960%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E8%80%83%E3%81%88%E3%81%A6%E3%81%BF%E3%81%9F/</li>
+</ul></li>
+<li>対局開始時の合法性のチェック
+<ul>
+<li>二歩のチェック</li>
+<li>行き場のない駒</li>
+<li>非手番側への王手</li>
+<li>玉なし、単玉、玉2枚で同じ手番側、玉3枚以上のチェック</li>
+<li>非合法局面で対局を開始しようとした時にその理由を詳しく表示する機能</li>
+</ul></li>
+<li>棋譜ファイルの入出力
+<ul>
+<li>KIF/KIF2/CSA/PSN/PSN2/SFEN形式の読み書き対応</li>
+<li>分岐棋譜の読み込み、書き出し対応(KIF/KIF2/PSN/PSN2)</li>
+<li>棋譜の上書き保存</li>
+<li>現在の局面の保存機能 KIF/KIF2/CSA/PSN/PSN2</li>
+</ul></li>
+<li><p>SVG形式で局面図の書き出し</p></li>
+<li>棋譜読み上げ音声
+<ul>
+<li>対局開始・終了時の挨拶(商用版のみ)</li>
+<li>棋譜の読み上げ(商用版のみ)</li>
+<li>秒読みの秒の読み上げ(商用版のみ)</li>
+<li>駒音の再生</li>
+<li>読み上げ・駒音の再生についてはメニューから個別にオン・オフ可能</li>
+</ul></li>
+<li>盤面編集
+<ul>
+<li>平手、各種駒落ち、詰将棋、双玉詰将棋の開始局面に初期化する機能</li>
+<li>手番の変更</li>
+<li>駒箱機能(不要な駒を入れておくための箱。使用しない駒を自由に選べる)</li>
+<li>2駒クリックによる自由度の高い移動
+<ul>
+<li>盤上の駒、2駒クリックでの駒の交換</li>
+<li>駒台から相手の駒台への直接移動</li>
+<li>駒台から駒箱への移動</li>
+<li>駒箱から駒台への直接移動など</li>
+</ul></li>
+<li>細い駒台用の駒箱の実装</li>
+</ul></li>
+<li>表示設定</li>
+<li>スクリーンショットを交えた、わかりやすい表示設定</li>
+<li>駒の色味、盤面・畳の色味など調整可能</li>
+<li>マウスドラッグでの駒の移動のオンオフ</li>
+<li>駒を移動させるときにマウスカーソルに追随させるかのオンオフ</li>
+<li>各部位のフォント設定が可能</li>
+<li><p>etc..</p></li>
+<li>コンピュータの読み筋の表示
+<ul>
+<li>対局中にコンピューターの読み筋を別ウィンドウで表示(リサイズ可)</li>
+<li>対局中にコンピューターの読み筋に対して、ミニ盤面で手順を閲覧できる</li>
+<li>ミニ盤面の操作用のボタンとして、1手送り、1手戻し、開始局面へ移動、末端局面へ移動、盤面反転ボタンの実装</li>
+<li>&quot;info multipv ..&quot;を解釈して、その指し手の順位を表示</li>
+<li>Scoreのupperbound,lowerboundを&quot;++&quot;,&quot;--&quot;で表示</li>
+</ul></li>
+<li>検討モード
+<ul>
+<li>検討時にコンピューターの候補手の表示(MultiPV)
+<ul>
+<li>「着順」: 読み筋を到着時刻順に表示。</li>
+<li>「R順」 : 読み筋をR(Rankingの略。候補手の順位のこと)順に表示。</li>
+</ul></li>
+<li>検討時にコンピューターの読み筋に対して、ミニ盤面で手順を閲覧できる。</li>
+<li>検討ウィンドウの候補手の数、終了時に保存しておき、次回に復元。</li>
+<li>検討モード前に局面の合法性のチェック</li>
+</ul></li>
+<li>評価値に「先手優勢」「後手有利」などの日本語で併記</li>
+<li>読み筋のところに「千日手引き分け」「優等局面」なども表示される。</li>
+<li><p>読み筋は、KIF2形式以外にCSA形式、SFEN形式も選択可能</p></li>
+<li>詰検討モード</li>
+<li>詰将棋エンジンに対応</li>
+<li><p>「不詰」の証明が出来る(詰将棋エンジン側がきちんと実装されていれば)</p></li>
+<li>ウィンドウ
+<ul>
+<li>終了時のメインウィンドウ、検討ウィンドウのサイズ、メインのウィンドウからの相対位置を次回起動時に復元</li>
+<li>検討ウィンドウを×ボタンで非表示にする、非表示にした検討ウィンドウをメニューの「ウィンドウ」のところから表示する</li>
+</ul></li>
+<li><p>検討ウインドウ、棋譜ウインドウのメインウインドウへの埋込み</p></li>
+<li>USI2.0対応
+<ul>
+<li>実行環境のCPUの自動判別、実行ファイルの自動決定</li>
+<li>動作環境の空き物理メモリの事前チェック</li>
+<li>HASH、自動割当</li>
+</ul></li>
+<li>エンジン選択ダイアログ
+<ul>
+<li>エンジンバナー、エンジン名、エンジン説明の表示</li>
+<li>思考エンジンの使用メモリの表示、現在の空き物理メモリの表示</li>
+</ul></li>
+<li>エンジン詳細設定</li>
+<li>わかりやすいエンジンオプションの説明</li>
+<li>デフォルト値の表示(元に戻したい時のため)</li>
+<li>エンジンの共通設定を用意</li>
+<li>詰将棋エンジン用の共通設定も用意</li>
+<li><p>エンジンオプションのリセット機能</p></li>
+<li>COM同士の連続対局機能</li>
+<li>棋譜ファイル自動保存</li>
+<li>連続対局時のフォルダ自動作成</li>
+<li><p>Elo ratingの表示</p></li>
+<li>開発者支援
+<ul>
+<li>デバッグウィンドウ
+<ul>
+<li>思考エンジンとのやりとりを出力</li>
+<li>タイムスタンプは、ms単位まで</li>
+<li>正規表現によるフィルター機能</li>
+</ul></li>
+<li>テキスト選択～ Ctrl+Cでクリップボードへのコピー。</li>
+<li>ロギング機能
+<ul>
+<li>思考エンジンとのやりとりをファイルに出力</li>
+<li>タイムスタンプは、ms単位まで</li>
+</ul></li>
+</ul></li>
+<li><p>例外が出た時にその内容がテキストボックスに表示されるのでメッセージのコピペが可能</p></li>
+</ul>
+  </div>
+</body>
+</html>

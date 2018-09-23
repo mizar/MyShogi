@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>特殊関数・初等関数の計算メモ</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!-- Style for Markdown -->
+  <style>
+  .md2html-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .md2html-container > h1:first-child {
+    margin-top: 0;
+  }
+  body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  border-collapse: collapse;
+  padding: 0; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+  </style>
+  <script src="data:text/javascript,%28function%28_%29%7B_.setAttribute%28%27type%27%2C%27text%2Fjavascript%27%29%3B_.setAttribute%28%27src%27%2C%27https%3A%2F%2Fcdn.mathjax.org%2Fmathjax%2Flatest%2FMathJax.js%3Fconfig%3DTeX-AMS-MML_HTMLorMML%27%29%3Bdocument.getElementsByTagName%28%27head%27%29%5B0%5D.appendChild%28_%29%7D%29%28document.createElement%28%27script%27%29%29" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="md2html-container">
+<header>
+<h1 class="title">特殊関数・初等関数の計算メモ</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#所">所</a></li>
+<li><a href="#指数関数対数関数">指数関数・対数関数</a><ul>
+<li><a href="#ロジット">ロジット</a></li>
+<li><a href="#イロレーティング">イロレーティング</a></li>
+</ul></li>
+<li><a href="#三角関数">三角関数</a></li>
+<li><a href="#階乗">階乗</a></li>
+<li><a href="#二重階乗">二重階乗</a></li>
+<li><a href="#ガンマ関数">ガンマ関数</a><ul>
+<li><a href="#lanczos近似">Lanczos近似</a></li>
+<li><a href="#大浦による実ガンマ関数近似">大浦による実ガンマ関数近似</a></li>
+</ul></li>
+<li><a href="#不完全ガンマ関数">不完全ガンマ関数</a><ul>
+<li><a href="#正則化ガンマ関数">正則化ガンマ関数</a></li>
+</ul></li>
+<li><a href="#誤差関数">誤差関数</a><ul>
+<li><a href="#大浦による実誤差関数近似">大浦による実誤差関数近似</a></li>
+<li><a href="#大浦による実相補誤差関数近似">大浦による実相補誤差関数近似</a></li>
+</ul></li>
+<li><a href="#ベータ関数">ベータ関数</a></li>
+<li><a href="#不完全ベータ関数">不完全ベータ関数</a></li>
+<li><a href="#正則ベータ関数">正則ベータ関数</a><ul>
+<li><a href="#bpser">BPSER</a></li>
+<li><a href="#bgrat">BGRAT</a></li>
+<li><a href="#bfrac1">BFRAC(1)</a></li>
+<li><a href="#bfrac2">BFRAC(2)</a></li>
+<li><a href="#basym">BASYM</a></li>
+</ul></li>
+<li><a href="#二項累積分布と正則ベータ関数との関係">二項累積分布と正則ベータ関数との関係</a></li>
+<li><a href="#maxima-script">Maxima script</a></li>
+</ul>
+</nav>
+<h1 id="所">所</h1>
+<p>２者間の勝敗数からレーティング差の区間推定を行う計算を、二項累積分布と正則ベータ関数の関係を用いようとした際のまとめ書きです。</p>
+<h1 id="指数関数対数関数">指数関数・対数関数</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E6%8C%87%E6%95%B0%E9%96%A2%E6%95%B0">ja.wikipedia: 指数関数</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%BA%95%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%8C%87%E6%95%B0%E5%87%BD%E6%95%B0">ja.wikipedia: 底に関する指数函数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exponential_function">en.wikipedia: Exponential function</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%86%AA%E4%B9%97">ja.wikipedia: 冪乗</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exponentiation">en.wikipedia: Exponentiation</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E5%AF%BE%E6%95%B0">ja.wikipedia: 対数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Logarithm">en.wikipedia: Logarithm</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E8%87%AA%E7%84%B6%E5%AF%BE%E6%95%B0">ja.wikipedia: 自然対数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Natural_logarithm">en.wikipedia: Natural logarithm</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+e^x&amp;=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots\\
+&amp;=1+x\left(1+\frac{x}{2}\left(1+\frac{x}{3}\left(1+\frac{x}{4}\left(1+\cdots\right)\right)\right)\right)\\
+e^x-1&amp;=x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots\\
+&amp;=x\left(1+\frac{x}{2}\left(1+\frac{x}{3}\left(1+\frac{x}{4}\left(1+\cdots\right)\right)\right)\right)\\
+e^{2x}-1&amp;=(e^x-1)^2+2(e^x-1)\\
+\ln(1+x)&amp;=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+\cdots\qquad(-1 &lt; x\le 1)\\
+\ln(1+x)&amp;=\ln\left(\frac{1+y}{1-y}\right)=2\left(y+\frac{1}{3}y^3+\frac{1}{5}y^5+\frac{1}{7}y^7+\cdots\right)\qquad\left(-1 &lt; y =\frac{x}{x+2} &lt; 1\right)\\
+\ln(2)&amp;=3\,\ln\left(1+\frac{1}{80}\right)+5\,\ln\left(1+\frac{1}{24}\right)+7\,\ln\left(1+\frac{1}{15}\right)\\
+&amp;=3\,\ln\left(\frac{1+\frac{1}{161}}{1-\frac{1}{161}}\right)+5\ln\left(\frac{1+\frac{1}{49}}{1-\frac{1}{49}}\right)+7\,\ln\left(\frac{1+\frac{1}{31}}{1-\frac{1}{31}}\right)\\
+\ln\left(a\cdot 2^n\right)&amp;=\ln(a)+\ln\left(2^n\right) =\ln(a)+n\,\ln(2)\\
+\ln\left(e^a+e^b\right)&amp;=a+\ln\left(1+e^{b-a}\right)=b+\ln\left(1+e^{a-b}\right)\\
+\ln\left(e^a-e^b\right)&amp;=a+\ln\left(1-e^{b-a}\right)\\
+\end{aligned}\]</span></p>
+<h2 id="ロジット">ロジット</h2>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B8%E3%83%83%E3%83%88">ja.wikipedia: ロジット</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Logit">en.wikipedia: Logit</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E9%96%A2%E6%95%B0">ja.wikipedia: ロジスティック方程式</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Logistic_function">en.wikipedia: Logistic function</a></li>
+</ul>
+<p>対数の底は<span class="math inline">\(1\)</span>より大きければ何でも良いが、ここでは特に明示のない限り自然対数の底 <span class="math inline">\(e\)</span> を用いることとする。</p>
+<p><span class="math display">\[\begin{aligned}
+\operatorname{logit}(p)&amp;=\log\left(\frac{p}{1-p}\right)=\log(p)-\log(1-p)=-\log\left(\frac{1}{p}-1\right)\\
+\operatorname{logit}^{-1}(\alpha)&amp;=\operatorname{logistic}(\alpha)=\frac{1}{1+\exp(-\alpha)}=\frac{\exp(\alpha)}{\exp(\alpha)+1}\\
+\log(R)&amp;=\log\left(\frac{p_1/(1-p_1)}{p_2/(1-p_2)}\right)=\log\left(\frac{p_1}{1-p_1}\right)-\log\left(\frac{p_2}{1-p_2}\right)=\operatorname{logit}(p_1)-\operatorname{logit}(p_2)\\
+\end{aligned}\]</span></p>
+<h2 id="イロレーティング">イロレーティング</h2>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%AD%E3%83%AC%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">ja.wikipedia: イロレーティング</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Elo_rating_system">en.wikipedia: Elo rating system</a></li>
+</ul>
+<p>ロジスティック関数の一種を用いて定義されており、ロジットとイロレーティングの値は一次関数を用いて変換できる。</p>
+<p><span class="math display">\[\begin{aligned}
+E_A&amp;=\frac{1}{1+10^{(R_B-R_A)/400}}=\frac{Q_A}{Q_A+Q_B}\\
+E_B&amp;=\frac{1}{1+10^{(R_A-R_B)/400}}=\frac{Q_B}{Q_A+Q_B}\\
+E_A+E_B&amp;=1\\
+Q_A&amp;=10^{R_A/400}\\
+Q_B&amp;=10^{R_B/400}\\
+\end{aligned}\]</span></p>
+<h1 id="三角関数">三角関数</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E9%96%A2%E6%95%B0">ja.wikipedia: 三角関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Trigonometric_functions">en.wikipedia: Trigonometric functions</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\sin z&amp;=\sum_{n=0}^\infty\frac{(-1)^n}{(2n+1)!}z^{2n+1}\quad\text{for all $z$}\\
+\cos z&amp;=\sum_{n=0}^\infty\frac{(-1)^n}{(2n)!}z^{2n}\quad\text{for all $z$}\\
+\sin(x\pm y)&amp;=\sin x\cos y\pm\cos x\sin y\\
+\cos(x\pm y)&amp;=\cos x\cos y\mp\sin x\sin y\\
+\sin(2x)&amp;=2\sin x\cos x\\
+\cos(2x)&amp;=\cos^2x-\sin^2x=2\cos^2x-1=1-\sin^2x\\
+\sin(3x)&amp;=3\sin x-4\sin^3 x\\
+\cos(3x)&amp;=4\cos^3x-3\cos x\\
+\sin^2\frac{x}{2}&amp;=\frac{1-\cos x}{2}\\
+\cos^2\frac{x}{2}&amp;=\frac{1+\cos x}{2}\\
+\tan^2\frac{x}{2}&amp;=\frac{1-\cos x}{1+\cos x}\\
+\end{aligned}\]</span></p>
+<h1 id="階乗">階乗</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E9%9A%8E%E4%B9%97">ja.wikipedia: 階乗</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Factorial">en.wikipedia: Factorial</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+n!&amp;=\prod_{k=1}^nk=n(n-1)(n-2)\cdots 2\cdot 1\\
+0!&amp;=1\\
+1!&amp;=1\\
+2!&amp;=2\\
+3!&amp;=6\\
+4!&amp;=24\\
+5!&amp;=120\\
+6!&amp;=720\\
+7!&amp;=5040\\
+\end{aligned}\]</span></p>
+<h1 id="二重階乗">二重階乗</h1>
+<ul>
+<li>二重階乗 (double fractorial) / 半階乗 (semifactorial)</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E4%BA%8C%E9%87%8D%E9%9A%8E%E4%B9%97">ja.wikipedia: 二重階乗</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Double_factorial">en.wikipedia: Double factorial</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+n!!&amp;=\prod_{k=0}^{\left\lceil\frac{n}{2}\right\rceil-1}(n-2k)=n(n-2)(n-4)\cdots\\
+n!!&amp;=\prod_{k=1}^\frac{n}{2}(2k)=n(n-2)(n-4)\cdots 4\cdot 2\qquad(n\text{ is even})\\
+0!!&amp;=1\\
+2!!&amp;=2\\
+4!!&amp;=8\\
+6!!&amp;=48\\
+8!!&amp;=384\\
+10!!&amp;=3840\\
+12!!&amp;=46080\\
+14!!&amp;=645120\\
+n!!&amp;=\prod_{k=1}^\frac{n+1}{2}(2k-1)=n(n-2)(n-4)\cdots 3\cdot 1\qquad(n\text{ is odd})\\
+1!!&amp;=1\\
+3!!&amp;=3\\
+5!!&amp;=15\\
+7!!&amp;=105\\
+9!!&amp;=945\\
+11!!&amp;=10395\\
+13!!&amp;=135135\\
+15!!&amp;=2027025\\
+\end{aligned}\]</span></p>
+<h1 id="ガンマ関数">ガンマ関数</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0">ja.wikipedia: ガンマ関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gamma_function">en.wikipedia: Gamma function</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\Gamma(z)&amp;=\int_0^\infty t^{z-1}\,e^{-t}\,\mathrm{d}t\qquad(\Re{z} &gt; 0)\\
+\Gamma(z+1)&amp;=z\,\Gamma(z)\\
+\Gamma\left(-\frac{3}{2}\right)&amp;=\frac{4\sqrt{\pi}}{3}\approx 2.363\\
+\Gamma\left(-\frac{1}{2}\right)&amp;=-2\sqrt{\pi}\approx-3.545\\
+\Gamma\left(\frac{1}{2}\right)&amp;=\sqrt{\pi}\approx 1.772\\
+\Gamma(1)&amp;=0!=1\\
+\Gamma\left(\frac{3}{2}\right)&amp;=\frac{\sqrt{\pi}}{2}\approx 0.886\\
+\Gamma(2)&amp;=1!=1\\
+\Gamma\left(\frac{5}{2}\right)&amp;=\frac{3\sqrt{\pi}}{4}\approx 1.329\\
+\Gamma(3)&amp;=2!=2\\
+\Gamma\left(\frac{7}{2}\right)&amp;=\frac{15\sqrt{\pi}}{8}\approx 3.323\\
+\Gamma(4)&amp;=3!=6\\
+\Gamma(n+1)&amp;=n!\\
+\Gamma\left(\frac{1}{2}+n\right)&amp;=\frac{(2n-1)!!}{2^n}\sqrt{\pi}\qquad(n\ge 1)\\
+\Gamma\left(\frac{1}{2}-n\right)&amp;=\frac{(-2)^n}{(2n-1)!!}\sqrt{\pi}\qquad(n\ge 1)\\
+\Gamma(z)\,\Gamma(1-z)&amp;=-z\,\Gamma(z)\,\Gamma(-z)=\frac{\pi}{\sin\pi{z}}\\
+\end{aligned}\]</span></p>
+<h2 id="lanczos近似">Lanczos近似</h2>
+<ul>
+<li>Lanczos近似 : <a href="https://en.wikipedia.org/wiki/Lanczos_approximation">en.wikipedia: Lanczos approximation</a></li>
+<li>パラメータ算出 : <a href="https://mrob.com/pub/ries/lanczos-gamma.html" class="uri">https://mrob.com/pub/ries/lanczos-gamma.html</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+z! =\Gamma(z+1)&amp;\approx\sqrt{2\pi}\left(z+g+\frac{1}{2}\right)^{z+\frac{1}{2}}e^{-\left(z+g+\frac{1}{2}\right)} A_g(z)\\
+A_g(z)&amp;\approx c_0+\sum_{k=1}^{N-1}\frac{c_k}{z+k}\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(g=5,N=7\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+c_0&amp;=+1.000000000190015\\
+c_1&amp;=+76.18009172947146\\
+c_2&amp;=-86.50532032941677\\
+c_3&amp;=+24.01409824083091\\
+c_4&amp;=-1.231739572450155\\
+c_5&amp;=+0.1208650973866179E-2\\
+c_6&amp;=-0.5395239384953E-5\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(g=7,N=9\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+c_0&amp;=+0.99999999999980993227684700473478\\
+c_1&amp;=+676.520368121885098567009190444019\\
+c_2&amp;=-1259.13921672240287047156078755283\\
+c_3&amp;=+771.3234287776530788486528258894\\
+c_4&amp;=-176.61502916214059906584551354\\
+c_5&amp;=+12.507343278686904814458936853\\
+c_6&amp;=-0.13857109526572011689554707\\
+c_7&amp;=+9.984369578019570859563E-6\\
+c_8&amp;=+1.50563273514931155834E-7\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(g=9,N=11\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+c_0&amp;=+1.000000000000000174663\\
+c_1&amp;=+5716.400188274341379136\\
+c_2&amp;=-14815.30426768413909044\\
+c_3&amp;=+14291.49277657478554025\\
+c_4&amp;=-6348.160217641458813289\\
+c_5&amp;=+1301.608286058321874105\\
+c_6&amp;=-108.1767053514369634679\\
+c_7&amp;=+2.605696505611755827729\\
+c_8&amp;=-0.7423452510201416151527E-2\\
+c_9&amp;=+0.5384136432509564062961E-7\\
+c_{10}&amp;=-0.4023533141268236372067E-8\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(g=607/128=4.7421875,N=15\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+c_0&amp;=+0.99999999999999709182\\
+c_1&amp;=+57.156235665862923517\\
+c_2&amp;=-59.597960355475491248\\
+c_3&amp;=+14.136097974741747174\\
+c_4&amp;=-0.49191381609762019978\\
+c_5&amp;=+0.33994649984811888699E-4\\
+c_6&amp;=+0.46523628927048575665E-4\\
+c_7&amp;=-0.98374475304879564677E-4\\
+c_8&amp;=+0.15808870322491248884E-3\\
+c_9&amp;=-0.21026444172410488319E-3\\
+c_{10}&amp;=+0.21743961811521264320E-3\\
+c_{11}&amp;=-0.16431810653676389022E-3\\
+c_{12}&amp;=+0.84418223983852743293E-4\\
+c_{13}&amp;=-0.26190838401581408670E-4\\
+c_{14}&amp;=+0.36899182659531622704E-5\\
+\end{aligned}\]</span></p>
+<h2 id="大浦による実ガンマ関数近似">大浦による実ガンマ関数近似</h2>
+<ul>
+<li><a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">大浦拓哉, ガンマ関数および誤差関数の初等関数近似とその最適化</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">(ja)</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf.html">(en)</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\Gamma(x)&amp;\approx\exp((x-0.5)\ln(x+V)-x)\\
+&amp;\quad\cdot((\cdots(A_n/(x+B_n)+\cdots A_1)/(x+B_1)+A_0)/x+A_r)\qquad(0 &lt; x &lt;\infty)\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=2\)</span> のとき、相対誤差の上限 <span class="math inline">\(=3.11289669E-8\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+V  &amp;=2.102394798991390E+0\\
+A_r&amp;=3.062185443705942E-1\\
+A_0&amp;=1.024166094985555E+0\\
+A_1&amp;=4.258010456317367E-1\\
+B_1&amp;=1.000008131602802E+0\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=6\)</span> のとき、相対誤差の上限 <span class="math inline">\(=2.09144255E-18\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+V  &amp;=6.0975075753906857609437558E+0\\
+A_r&amp;=5.6360656189756064967977564E-3\\
+A_0&amp;=1.2242597732687991784645973E-1\\
+A_1&amp;=8.5137081316503418312411656E-1\\
+A_2&amp;=2.2502304753561816836695856E+0\\
+A_3&amp;=2.0962955353894997733869983E+0\\
+A_4&amp;=5.0219722703392090725884168E-1\\
+A_5&amp;=1.1240582657165407383437999E-2\\
+B_1&amp;=1.0000000000006553243170562E+0\\
+B_2&amp;=1.9999999996201023058065171E+0\\
+B_3&amp;=3.0000000467265241458431618E+0\\
+B_4&amp;=3.9999966300007508932097016E+0\\
+B_5&amp;=5.0003589884831925541613237E+0\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=13\)</span> のとき、相対誤差の上限 <span class="math inline">\(=8.43420741E-37\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+V  &amp;=1.35781220007039464739769136052735188826566614E+1\\
+A_r&amp;=3.17823842997348984212895391439981193809771347E-6\\
+A_0&amp;=3.14820702833493003545826236239083394571995671E-4\\
+A_1&amp;=1.27937416087229845006934584904736618598070572E-2\\
+A_2&amp;=2.78748303060299808744345690552596166059251493E-1\\
+A_3&amp;=3.57487639582285701807582585579290271336089099E+0\\
+A_4&amp;=2.79272804215633250156669351783752812175650972E+1\\
+A_5&amp;=1.33213846503797389894468858322687847549726114E+2\\
+A_6&amp;=3.79504051924654223127926344491479357839857722E+2\\
+A_7&amp;=6.15621499930282594633468081962352923412741184E+2\\
+A_8&amp;=5.24004008691006507011182613589749851171431576E+2\\
+A_9&amp;=2.04187662020237118761681790759964964799068736E+2\\
+A_{10}&amp;=2.86456197727291086831913426471935542005422307E+1\\
+A_{11}&amp;=8.95072101413389847373058347512910403979947773E-1\\
+A_{12}&amp;=1.84108633157612656306027334817135207544862157E-3\\
+B_1&amp;=9.99999999999999999999999999829177067439186649E-1\\
+B_2&amp;=2.00000000000000000000000143725325109773686179E+0\\
+B_3&amp;=2.99999999999999999999878069870191969828857942E+0\\
+B_4&amp;=4.00000000000000000031822896056305388990947492E+0\\
+B_5&amp;=4.99999999999999996032765694796886928790459606E+0\\
+B_6&amp;=6.00000000000000300343091566980971296037249121E+0\\
+B_7&amp;=6.99999999999983752474626982882253159057375788E+0\\
+B_8&amp;=8.00000000000719155188030217651616848093810689E+0\\
+B_9&amp;=8.99999999970006818618226539512826008489484540E+0\\
+B_{10}&amp;=1.00000000142050052373091324295304916612836237E+1\\
+B_{11}&amp;=1.09999989539201196803612424783730853335056534E+1\\
+B_{12}&amp;=1.20002381089341943372805397259444226612900582E+1\\
+\end{aligned}\]</span></p>
+<h1 id="不完全ガンマ関数">不完全ガンマ関数</h1>
+<ul>
+<li>不完全ガンマ関数 (Incomplete gamma functions)</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0">ja.wikipedia: 不完全ガンマ関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Incomplete_gamma_function">en.wikipedia: Incomplete gamma function</a></li>
+<li><a href="https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_gamma/igamma.html#math_toolkit.sf_gamma.igamma.implementation">boost.org: math toolkit/sf gamma/igamma.html #math toolkit.sf gamma.igamma.implementation</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\gamma(a,x)&amp;=\int_0^x t^{a-1}\,e^{-t}\mathrm{d}t\qquad\text{(lower incomplete gamma function)}\\
+\Gamma(a,x)&amp;=\int_x^\infty t^{a-1}\,e^{-t}\mathrm{d}t\qquad\text{(upper incomplete gamma function)}\\
+\Gamma(a)&amp;=\gamma(a,x)+\Gamma(a,x)\\
+\gamma(a+1,x)&amp;=a\,\gamma(a,x)-x^a\,e^{-x}\\
+\Gamma(a+1,x)&amp;=a\,\Gamma(a,x)+x^a\,e^{-x}\\
+\gamma(a,0)&amp;=0\\
+\Gamma(a,0)&amp;=\Gamma(a)\quad(\mathfrak{R}(a) &gt; 0)\\
+\gamma(a,x)&amp;\to\Gamma(a)\quad(x\to\infty)\\
+\Gamma(0,x)&amp;=-\operatorname{Ei}(-x)\quad\text{ for } x &gt; 0\\
+\Gamma(1/2,x)&amp;=\sqrt\pi\operatorname{erfc}\left(\sqrt x\right)\\
+\gamma(1/2,x)&amp;=\sqrt\pi\operatorname{erf} \left(\sqrt x\right)\\
+\Gamma(1,x)&amp;=e^{-x}\\
+\gamma(1,x)&amp;=1-e^{-x}\\
+\end{aligned}\]</span></p>
+<h2 id="正則化ガンマ関数">正則化ガンマ関数</h2>
+<ul>
+<li>正則化ガンマ関数 (Regularized Gamma functions)</li>
+<li><a href="https://en.wikipedia.org/wiki/Incomplete_gamma_function#Regularized_Gamma_functions_and_Poisson_random_variables">en.wikipedia: Incomplete gamma function #Regularized Gamma functions and Poisson random variables</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+P(a,x)&amp;=\int_0^x\frac{t^{a-1}\,e^{-t}}{\Gamma(a)}\mathrm{d}t =\frac{\gamma(a,x)}{\Gamma(a)}=1-Q(a,x)\\
+Q(a,x)&amp;=\int_x^\infty\frac{t^{a-1}\,e^{-t}}{\Gamma(a)}\mathrm{d}t =\frac{\Gamma(a,x)}{\Gamma(a)}=1-P(a,x)\\
+P(a,x)+Q(a,x)&amp;=1\\
+P(a,0)&amp;=0\\
+Q(a,0)&amp;=1\\
+P(a,x)&amp;\to 1\quad(x\to\infty)\\
+Q(a,x)&amp;\to 0\quad(x\to\infty)\\
+\end{aligned}\]</span></p>
+<h1 id="誤差関数">誤差関数</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E8%AA%A4%E5%B7%AE%E9%96%A2%E6%95%B0">ja.wikipedia: 誤差関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Error_function">en.wikipedia: Error function</a></li>
+<li>誤差関数 (error function)</li>
+</ul>
+<p><span class="math display">\[\operatorname{erf}(x)=\frac{2}{\sqrt{\pi}}\int_0^x e^{-t^2}\mathrm{d}t\]</span></p>
+<ul>
+<li>相補誤差関数 (complementary error function)</li>
+</ul>
+<p><span class="math display">\[\operatorname{erfc}(x)=1-\operatorname{erf}(x) =\frac{2}{\sqrt{\pi}}\int_x^\infty e^{-t^2}\mathrm{d}t=e^{-x^2}\operatorname{erfcx}(x)\]</span></p>
+<ul>
+<li>スケーリング相補誤差関数 (scaled complementary error function)</li>
+</ul>
+<p><span class="math display">\[\operatorname{erfcx}(x)=e^{x^2}\operatorname{erfc}(x) =\frac{2}{\sqrt{\pi}} e^{x^2}\int_x^\infty e^{-t^2}\mathrm{d}t\]</span></p>
+<h2 id="大浦による実誤差関数近似">大浦による実誤差関数近似</h2>
+<ul>
+<li><a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">大浦拓哉, ガンマ関数および誤差関数の初等関数近似とその最適化</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">(ja)</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf.html">(en)</a></li>
+</ul>
+<p><span class="math display">\[\operatorname{erf}(x)\approx\sum_{k=0}^{N-1}A_k\cdot x^{2k+1}\qquad(|x|\le 0.125)\]</span></p>
+<ul>
+<li><span class="math inline">\(N=3\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 3.1833E-9\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+A_{0}&amp;=+1.12837916390979E+0\\
+A_{1}&amp;=-3.76122716908058E-1\\
+A_{2}&amp;=+1.12210466658717E-1\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=6\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 8.5080E-19\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+A_{0}&amp;=+1.128379167095512573044943E+0\\
+A_{1}&amp;=-3.761263890318336015429662E-1\\
+A_{2}&amp;=+1.128379167066213010234749E-1\\
+A_{3}&amp;=-2.686616984476423776951305E-2\\
+A_{4}&amp;=+5.223878776856181012778436E-3\\
+A_{5}&amp;=-8.492024351869184700200701E-4\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=11\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 7.8857E-36\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+A_{0}&amp;=+1.12837916709551257389615890312154516380003E+0\\
+A_{1}&amp;=-3.76126389031837524632052967707059546441135E-1\\
+A_{2}&amp;=+1.12837916709551257389615889999358860765393E-1\\
+A_{3}&amp;=-2.68661706451312517594320425149614323134575E-2\\
+A_{4}&amp;=+5.22397762544218784195192159042937479733406E-3\\
+A_{5}&amp;=-8.54832702345085235483932361340167472569759E-4\\
+A_{6}&amp;=+1.20553329817887746876164250246490906879364E-4\\
+A_{7}&amp;=-1.49256503573424184861275467598647653507484E-5\\
+A_{8}&amp;=+1.64621135485586937463784315237197152289516E-6\\
+A_{9}&amp;=-1.63654546924614288220125244596685202501682E-7\\
+A_{10}&amp;=+1.47019666508092845945340329089881956917798E-8\\
+\end{aligned}\]</span></p>
+<h2 id="大浦による実相補誤差関数近似">大浦による実相補誤差関数近似</h2>
+<ul>
+<li><a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">大浦拓哉, ガンマ関数および誤差関数の初等関数近似とその最適化</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf-j.html">(ja)</a> <a href="http://www.kurims.kyoto-u.ac.jp/~ooura/gamerf.html">(en)</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\operatorname{erfc}(x)&amp;\approx E(x)+x\exp(-x^2)\sum_{k=0}^{N-1}\frac{A_k}{x^2+B_k}\qquad(-\infty &lt; x &lt;\infty)\\
+E(x)&amp;=\begin{cases}
+2/(1+\exp(\alpha x))&amp;(x &lt;\beta)\\
+0&amp;(x\ge\beta)\\
+\end{cases}\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=4\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 7.07284210E-9\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\alpha&amp;=9.2088871045460211E+0\\
+\beta&amp;=5.0725473171624327E+0\\
+A_{0}&amp;=3.8664221739686797E-1\\
+A_{1}&amp;=1.5243017675919252E-1\\
+A_{2}&amp;=2.3814912488843075E-2\\
+A_{3}&amp;=1.3022729124288807E-3\\
+B_{0}&amp;=1.1638196508217325E-1\\
+B_{1}&amp;=1.0475380173789841E+0\\
+B_{2}&amp;=2.9213215631713289E+0\\
+B_{3}&amp;=6.0260843416158831E+0\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=8\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 3.63856888E-17\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\alpha&amp;=1.269748999651156838985811E+1\\
+\beta&amp;=6.103997330986881994334338E+0\\
+A_{0}&amp;=2.963168851992273778336357E-1\\
+A_{1}&amp;=1.815811251346370699640955E-1\\
+A_{2}&amp;=6.818664514249394930148282E-2\\
+A_{3}&amp;=1.569075431619667090378092E-2\\
+A_{4}&amp;=2.212901166815175728291522E-3\\
+A_{5}&amp;=1.913958130987428643791697E-4\\
+A_{6}&amp;=9.710132840105516234434841E-6\\
+A_{7}&amp;=1.666424471743077527468010E-7\\
+B_{0}&amp;=6.121586444955387580549294E-2\\
+B_{1}&amp;=5.509427800560020848936831E-1\\
+B_{2}&amp;=1.530396620587703969527527E+0\\
+B_{3}&amp;=2.999579523113006340465739E+0\\
+B_{4}&amp;=4.958677771282467011450533E+0\\
+B_{5}&amp;=7.414712510993354068147575E+0\\
+B_{6}&amp;=1.047651043565452375901435E+1\\
+B_{7}&amp;=1.484555573455979566646185E+1\\
+\end{aligned}\]</span></p>
+<ul>
+<li><span class="math inline">\(N=17\)</span> のとき、相対誤差の上限 <span class="math inline">\(= 7.45563242E-36\)</span></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\alpha&amp;=1.8296570980424689847157930974106706834567989E+1\\
+\beta&amp;=8.9588287394342176848213494031807385567358833E+0\\
+A_{0}&amp;=2.1226887418241545314975570224238841543405658E-1\\
+A_{1}&amp;=1.6766968820663231170102487414107148109808599E-1\\
+A_{2}&amp;=1.0461429607758480243524362040994242136794358E-1\\
+A_{3}&amp;=5.1557963860512142911764627378588661741526705E-2\\
+A_{4}&amp;=2.0070986488528139460346647533434778000221814E-2\\
+A_{5}&amp;=6.1717726506718148117513762897928828533989685E-3\\
+A_{6}&amp;=1.4990611906920858646769185063310410160420122E-3\\
+A_{7}&amp;=2.8760540416705806615617926157307107830366204E-4\\
+A_{8}&amp;=4.3585593590380741491013549969419946961138883E-5\\
+A_{9}&amp;=5.2174364856655433775383935118049845471172446E-6\\
+A_{10}&amp;=4.9333351722974670085736982894474122277208033E-7\\
+A_{11}&amp;=3.6846914376723888190666722894010079934846267E-8\\
+A_{12}&amp;=2.1729515092764086499231043367920037214553663E-9\\
+A_{13}&amp;=9.9870022842895735663712411206346261651079743E-11\\
+A_{14}&amp;=3.1775163189596489863458236395414830880404471E-12\\
+A_{15}&amp;=4.5657943993597540327708145643160878201453992E-14\\
+A_{16}&amp;=1.1940964427370412648558173558044106203476395E-16\\
+B_{0}&amp;=2.9482230394292049252878077330764031336911886E-2\\
+B_{1}&amp;=2.6534007354862844327590269604581049763591558E-1\\
+B_{2}&amp;=7.3705575985730123132195272141160572531634811E-1\\
+B_{3}&amp;=1.4446292893203104133929687855854497895783377E+0\\
+B_{4}&amp;=2.3880606619376559912235584857800710490361124E+0\\
+B_{5}&amp;=3.5673498777093386979273977202889759344704102E+0\\
+B_{6}&amp;=4.9824969366355296879760903991854492761727217E+0\\
+B_{7}&amp;=6.6335018387405633238409855625402006222862354E+0\\
+B_{8}&amp;=8.5203645862651289478197632097553870198987021E+0\\
+B_{9}&amp;=1.0643085317662274170216548777166393329207188E+1\\
+B_{10}&amp;=1.3001669850030489723387515813223808078289803E+1\\
+B_{11}&amp;=1.5596282517377690399267249728222735969695585E+1\\
+B_{12}&amp;=1.8429903207271748464995406180854691071748545E+1\\
+B_{13}&amp;=2.1533907893494593530979123915138686106579160E+1\\
+B_{14}&amp;=2.5076752889217226137869837117288885076749247E+1\\
+B_{15}&amp;=2.9515380437412601845256918753602002410389178E+1\\
+B_{16}&amp;=3.5792848810704122499184545805923520657604330E+1\\
+\end{aligned}\]</span></p>
+<h1 id="ベータ関数">ベータ関数</h1>
+<ul>
+<li><a href="https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%BC%E3%82%BF%E9%96%A2%E6%95%B0">ja.wikipedia: ベータ関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Beta_function">en.wikipedia: Beta function</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\operatorname{B}(x,y)&amp;=\int_0^1 t^{x-1}\,(1-t)^{y-1}\,\mathrm{d}t\\
+\operatorname{B}(x,y)&amp;=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}\\
+\operatorname{B}(x,y)&amp;=\operatorname{B}(y,x)\\
+x\,\operatorname{B}(x,y+1)&amp;=y\,\operatorname{B}(x+1,y)\\
+\operatorname{B}(x,y)&amp;=\operatorname{B}(x+1,y)+\operatorname{B}(x,y+1)\\
+\operatorname{B}(x+1,y)&amp;=\operatorname{B}(x,y)\cdot\frac{x}{x+y}\\
+\operatorname{B}(x,y+1)&amp;=\operatorname{B}(x,y)\cdot\frac{y}{x+y}\\
+\operatorname{B}(x,y)\cdot\operatorname{B}(x+y,1-y)&amp;=\frac{\pi}{x\sin(\pi y)}\\
+\operatorname{B}(x,1-x)&amp;=\frac{\pi}{\sin(\pi x)}\\
+\operatorname{B}(1,x)&amp;=\frac{1}{x}\\
+\end{aligned}\]</span></p>
+<h1 id="不完全ベータ関数">不完全ベータ関数</h1>
+<ul>
+<li>不完全ベータ関数 (incomplete beta function)</li>
+<li><a href="https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%83%99%E3%83%BC%E3%82%BF%E9%96%A2%E6%95%B0">ja.wikipedia: 不完全ベータ関数</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Beta_function#Incomplete_beta_function">en.wikipedia: Beta function #Incomplete beta function</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\operatorname{B}_z(a,b)&amp;=\int_{0}^{z} t^{a-1}\,(1-t)^{b-1}\,\mathrm{d}t\qquad(0\le\Re{z}\le 1)\\
+\end{aligned}\]</span></p>
+<h1 id="正則ベータ関数">正則ベータ関数</h1>
+<ul>
+<li>正則ベータ関数 (regularized beta function) / 正則化不完全ベータ関数 (regularized incomplete beta function)</li>
+<li><a href="https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_beta/ibeta_function.html#math_toolkit.sf_beta.ibeta_function.implementation">Incomplete Beta Functions-Implementation</a></li>
+<li><a href="http://www.dtic.mil/dtic/tr/fulltext/u2/a210118.pdf">Significant Digit Computation of the Incomplete Beta Function Ratios. AR DiDonato, AH Morris Jr-1988-dtic.mil</a></li>
+<li><a href="https://doi.org/10.1145/131766.131776">Armido R. Didonato and Alfred H. Morris, Jr.. 1992. Algorithm 708: Significant digit computation of the incomplete beta function ratios. ACM Trans. Math. Softw. 18, 3(September 1992), 360-373.</a></li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+I_z(a,b)&amp;=\frac{\operatorname{B}_z(a,b)}{\operatorname{B}(a,b)}\qquad(0\le\Re{z}\le 1)\\
+p&amp;=1-q=\frac{a}{a+b}\\
+q&amp;=1-p=\frac{b}{a+b}\\
+y&amp;=1-x\\
+I_0(a,b)&amp;=0\\
+I_1(a,b)&amp;=1\\
+I_x(a,1)&amp;=x^a\\
+I_x(1,b)&amp;=1-y^b\\
+I_x(a,b)&amp;=1-I_y(b,a)\\
+I_x(a,b)&amp;=I_x(a+n,b)+\frac{x^ay^b}{a B(a,b)}\sum_{i=0}^{n-1} d_i x^i\\
+I_x(a+n,b)&amp;=I_x(a,b)-\frac{x^ay^b}{a B(a,b)}\sum_{i=0}^{n-1} d_i x^i\\
+I_x(1+n,b)&amp;=1-y^b\left(1+b x\sum_{i=0}^{n-1} d_i x^i\right)\\
+I_x(a,b)&amp;=I_x(a,b+n)-\frac{x^ay^b}{b B(a,b)}\sum_{j=0}^{n-1}d'_j y^j\\
+I_x(a,b+n)&amp;=I_x(a,b)+\frac{x^ay^b}{b B(a,b)}\sum_{j=0}^{n-1}d'_j y^j\\
+I_x(a,1+n)&amp;=x^a\left(1+a y\sum_{j=0}^{n-1}d'_j y^j\right)\\
+d_{i+1}&amp;=\frac{a+b+i}{a+1+i}d_i,\ d_0=1\\
+d'_{j+1}&amp;=\frac{a+b+j}{b+1+j}d'_j,\ d'_0=1\\
+\end{aligned}\]</span></p>
+<h2 id="bpser">BPSER</h2>
+<p><span class="math display">\[\begin{aligned}
+I_x(a,b)&amp;=\frac{x^a}{a\operatorname{B}(a,b)}\left(1+a\sum_{j=1}^\infty\frac{(1-b)(2-b)\cdots(j-b)}{j!(a+j)} x^j\right)\qquad(b\le 1,\ x\le 0.7)\ |\ (bx\le 0.7)\\
+\end{aligned}\]</span></p>
+<h2 id="bgrat">BGRAT</h2>
+<p><span class="math display">\[\begin{aligned}
+I_x(a,b)&amp;\approx M\sum_{n=0}^\infty p_n J_n(b,u)\qquad(a &gt; b)\\
+T&amp;=a+\frac{b-1}{2}\\
+u&amp;=-T\ln x\\
+H(c,u)&amp;=\frac{e^{-u}u^c}{\Gamma(c)}\\
+M&amp;=\frac{H(b,u)\Gamma(a+b)}{\Gamma(a) T^b}\\
+J_n(b,u)&amp;=\left(\frac{u}{2T}\right)^{2n}\frac{Q(b+2n,u)}{H(b+2n,u)}
+=\left(\frac{\ln x}{2}\right)^{2n}\frac{Q(b+2n,u)}{H(b+2n,u)}\\
+Q(b,u)&amp;=\int_u^\infty\frac{e^{-t}t^{b-1}}{\Gamma(b)}\mathrm{d}t\qquad\text{(incomplete gamma function)}\\
+J_{n+1}(b,u)&amp;=\frac{(b+2n)(b+2n+1)}{4T^2}J_n(b,u)+\frac{u+b+2n+1}{4T^2}\left(\frac{\ln x}{2}\right)^{2n}\\
+J_0(b,u)&amp;=\frac{Q(b,u)}{H(b,u)}\\
+\end{aligned}\]</span></p>
+<h2 id="bfrac1">BFRAC(1)</h2>
+<p><span class="math display">\[\begin{aligned}
+I_x(a,b)&amp;=\frac{x^ay^b}{\operatorname{B}(a,b)}\left(\frac{\alpha_1}{\beta_1\ +}\frac{\alpha_2}{\beta_2\ +}\cdots\right)\qquad\left(x\le p\equiv\frac{a}{a+b}\right)\\
+y&amp;=1-x\\
+\alpha_1&amp;=1\\
+\beta_1&amp;=\frac{a}{a+1}(\lambda+1)\\
+\lambda&amp;=a-(a+b)x=(a+b)(p-x)\\
+\alpha_{n+1}&amp;=\frac{(a+n-1)(a+b+n-1)}{(a+2n-1)^2}n(b-n)x^2\qquad(n\ge 1)\\
+\beta_{n+1}&amp;=n+\frac{n(b-n)x}{a+2n-1}+\frac{a+n}{a+2n+1}[\lambda+1+n(1+y)]\qquad(n\ge 0)\\
+\end{aligned}\]</span></p>
+<h2 id="bfrac2">BFRAC(2)</h2>
+<p><span class="math display">\[\begin{aligned}
+I_x(a,b)&amp;=\frac{x^ay^b}{a\operatorname{B}(a,b)}\left(\frac{1}{1\ +}\frac{d_1}{1\ +}\frac{d_2}{1\ +}\cdots\right)\qquad\left(x\le p\equiv\frac{a}{a+b}\right)\\
+y&amp;=1-x\\
+d_{2n}&amp;=\frac{n(b-n)}{(a+2n-1)(a+2n)}x\qquad(n &gt; 0)\\
+d_{2n+1}&amp;=\frac{(a+n)(a+b+n)}{(a+2n)(a+2n+1)}x\qquad(n\ge 0)\\
+\end{aligned}\]</span></p>
+<h2 id="basym">BASYM</h2>
+<p><span class="math display">\[\begin{aligned}
+I_x(a,b)&amp;\approx\frac{2}{\sqrt{\pi}}Ue^{-z^2}\sum_{n=0}^\infty e_nL_n(z)(\beta\gamma)^n\qquad\left(x\le p\equiv\frac{a}{a+b}\right)\\
+U&amp;=\frac{p^aq^b}{\operatorname{B}(a,b)}\sqrt{\frac{2\pi(a+b)}{ab}}\\
+z&amp;=\sqrt{\varphi(x)}\\
+\varphi(t)&amp;=-\left(a\ln\frac{t}{p}+b\ln\frac{1-t}{q}\right)\ge 0\qquad(0 &lt; t &lt; 1)\\
+\beta\gamma&amp;=\sqrt{q/a}\qquad(a\le b)\\
+\beta\gamma&amp;=\sqrt{p/b}\qquad(a\ge b)\\
+a_n&amp;=\frac{2}{n+2}\,q\left[1+(-1)^n(a/b)^{n+1}\right]\qquad(a\le b)\\
+a_n&amp;=\frac{2}{n+2}\,p\left[(-1)^n+(b/a)^{n+1}\right]\qquad(a &gt; b,\ n\ge 0)\\
+p&amp;=1-q =\frac{a}{a+b}\\
+q&amp;=1-p =\frac{b}{a+b}\\
+b_0^{(r)}&amp;=1\qquad\\
+b_1^{(r)}&amp;=ra_1\qquad(r\ne 0)\\
+b_n^{(r)}&amp;=ra_n+\frac{1}{n}\sum_{i=1}^{n-1}[(n-i)r-i]b_i^{(r)}a_{n-i}\qquad(n=2,3,\dots)\\
+c_n&amp;=\frac{1}{n}b_{n-1}^{(-n/2)}\qquad(n\ge 1)\\
+e_0&amp;=1\\
+e_n&amp;=-\sum_{i=0}^{n-1}e_i\,c_{n-i+1}\\
+L_n(z)&amp;=2^{(n/2)-1}e^{z^2}\int_z^\infty e^{-u^2}u^n\mathrm{d}u\\
+L_0(z)&amp;=\frac{\sqrt{\pi}}{4}e^{z^2}\operatorname{erfc}(z) =\frac{\sqrt{\pi}}{4}\operatorname{erfcx}(z)\\
+L_1(z)&amp;=2^{-3/2}\\
+L_n(z)&amp;=2^{-3/2}\left(\sqrt{2}z\right)^{n-1}+(n-1)L_{n-2}(z)\qquad(n=2,3,\dots)\\
+\end{aligned}\]</span></p>
+<h1 id="二項累積分布と正則ベータ関数との関係">二項累積分布と正則ベータ関数との関係</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Beta_function#Incomplete_beta_function">en.wikipedia: Beta function# Incomplete beta function</a></li>
+</ul>
+<p><span class="math display">\[F(k;\,n,p)=\operatorname{Pr}(X\le k)=I_{1-p}(n-k,k+1)=1-I_p(k+1,n-k)\]</span></p>
+<h1 id="maxima-script">Maxima script</h1>
+<p>高精度の計算、自前実装ルーチンの検算用</p>
+<ul>
+<li><a href="https://gist.github.com/mizar/bb49ac4905742bfdef84f96146873d49">gist:イロレーティング計算用テストデータ</a></li>
+</ul>
+<div class="sourceCode" startFrom="1"><table class="sourceCode maxima numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre></td><td class="sourceCode"><pre><code class="sourceCode maxima"><span class="va">fpprec</span>:<span class="dv">64</span>$
+<span class="va">fpprintprec</span>:<span class="dv">36</span>$
+<span class="cn">defstruct</span>(<span class="cn">wdl</span>(<span class="cn">w</span>,<span class="cn">d</span>,<span class="cn">l</span>))$
+<span class="cn">defstruct</span>(<span class="cn">elorange</span>(<span class="cn">w</span>,<span class="cn">d</span>,<span class="cn">l</span>,<span class="cn">sr</span>,<span class="cn">r</span>,<span class="cn">low</span>,<span class="cn">high</span>))$
+<span class="cn">normcdf</span>(<span class="cn">x</span>):=<span class="cn">erfc</span>(-<span class="fu">sqrt</span>(<span class="fl">5b-1</span>)*<span class="cn">x</span>)*<span class="fl">5b-1</span>$
+<span class="cn">normcdfinv</span>(<span class="cn">r</span>):=<span class="cn">bf_find_root</span>(<span class="cn">normcdf</span>(<span class="cn">x</span>)-<span class="cn">r</span>,<span class="cn">x</span>,<span class="fl">-1b1</span>,<span class="fl">+1b1</span>)$
+<span class="cn">elo</span>(<span class="cn">a</span>,<span class="cn">b</span>,<span class="cn">r</span>):=<span class="cn">bf_find_root</span>(<span class="cn">beta_incomplete_regularized</span>(
+  <span class="fu">bfloat</span>(<span class="cn">a</span>),<span class="fu">bfloat</span>(<span class="cn">b</span>),(<span class="dv">1+10</span>^(<span class="fl">-25b-4</span>*<span class="cn">x</span>))^<span class="dv">-1</span>)-<span class="cn">r</span>,<span class="cn">x</span>,<span class="fl">-1b5</span>,<span class="fl">+1b5</span>)$
+<span class="cn">elocalc</span>(<span class="cn">wdl</span>,<span class="cn">r</span>):=<span class="cn">new</span>(<span class="cn">elorange</span>(<span class="cn">wdl</span>@<span class="cn">w</span>,<span class="cn">wdl</span>@<span class="cn">d</span>,<span class="cn">wdl</span>@<span class="cn">l</span>,-<span class="cn">normcdfinv</span>(<span class="cn">r</span>),<span class="cn">r</span>,
+  <span class="cn">elo</span>(<span class="cn">wdl</span>@<span class="cn">w</span>+<span class="cn">wdl</span>@<span class="cn">d</span>*<span class="fl">5b-1</span>,<span class="cn">wdl</span>@<span class="cn">l</span>+<span class="cn">wdl</span>@<span class="cn">d</span>*<span class="fl">5b-1</span><span class="dv">+1</span>,<span class="cn">r</span>),
+  <span class="cn">elo</span>(<span class="cn">wdl</span>@<span class="cn">w</span>+<span class="cn">wdl</span>@<span class="cn">d</span>*<span class="fl">5b-1</span><span class="dv">+1</span>,<span class="cn">wdl</span>@<span class="cn">l</span>+<span class="cn">wdl</span>@<span class="cn">d</span>*<span class="fl">5b-1</span>,<span class="dv">1</span>-<span class="cn">r</span>)))$
+<span class="cn">rlist</span>:[<span class="fl">2.5b-1</span>,<span class="fl">2b-1</span>,<span class="cn">normcdf</span>(<span class="fl">-1.0</span>),<span class="fl">1.5b-1</span>,<span class="fl">1.25b-1</span>,<span class="fl">1b-1</span>,<span class="cn">normcdf</span>(<span class="fl">-1.5</span>),
+  <span class="fl">5b-2</span>,<span class="fl">2.5b-2</span>,<span class="cn">normcdf</span>(<span class="fl">-2.0</span>),<span class="fl">1b-2</span>,<span class="cn">normcdf</span>(<span class="fl">-2.5</span>),<span class="fl">5b-3</span>,<span class="cn">normcdf</span>(<span class="fl">-3.0</span>),
+  <span class="fl">1b-3</span>,<span class="fl">5b-4</span>,<span class="cn">normcdf</span>(<span class="fl">-3.5</span>),<span class="fl">1b-4</span>,<span class="fl">5b-5</span>,<span class="cn">normcdf</span>(<span class="fl">-4.0</span>),<span class="fl">1b-5</span>];
+<span class="cn">wlist</span>:[
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">0</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e1</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">12</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">66</span>,<span class="dv">0</span>,<span class="dv">34</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e2</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">550</span>,<span class="dv">0</span>,<span class="dv">450</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e3</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">5155</span>,<span class="dv">0</span>,<span class="dv">4845</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e4</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">50490</span>,<span class="dv">0</span>,<span class="dv">49510</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e5</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">501546</span>,<span class="dv">0</span>,<span class="dv">498454</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e6</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">5004887</span>,<span class="dv">0</span>,<span class="dv">4995113</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e7</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">50015452</span>,<span class="dv">0</span>,<span class="dv">49984548</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e8</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">500048862</span>,<span class="dv">0</span>,<span class="dv">499951138</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e9</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e10</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e11</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e12</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e13</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e14</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e15</span>,<span class="dv">1</span>,<span class="dv">40</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">1</span>,<span class="dv">0</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">0</span>,<span class="dv">1</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">0</span>,<span class="dv">3</span>)),
+  <span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">1</span>,<span class="dv">10</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">0</span>,<span class="dv">40</span>)),<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="fl">1e16</span>,<span class="dv">1</span>,<span class="dv">40</span>))
+  ]$
+<span class="kw">for</span> <span class="cn">wi</span> <span class="kw">thru</span> <span class="fu">length</span>(<span class="cn">wlist</span>) <span class="kw">do</span>
+<span class="kw">for</span> <span class="cn">ri</span> <span class="kw">thru</span> <span class="fu">length</span>(<span class="cn">rlist</span>) <span class="kw">do</span>
+  <span class="fu">print</span>(<span class="cn">elocalc</span>(<span class="cn">wlist</span>[<span class="cn">wi</span>],<span class="cn">rlist</span>[<span class="cn">ri</span>]))$
+<span class="va">fpprec</span>:<span class="dv">40</span>$
+<span class="kw">for</span> <span class="cn">ri</span> <span class="kw">thru</span> <span class="fu">length</span>(<span class="cn">rlist</span>) <span class="kw">do</span>
+  <span class="fu">print</span>(<span class="cn">elocalc</span>(<span class="cn">new</span>(<span class="cn">wdl</span>(<span class="dv">5000154513</span>,<span class="dv">0</span>,<span class="dv">4999845487</span>)),<span class="cn">rlist</span>[<span class="cn">ri</span>]))$</code></pre></td></tr></table></div>
+  </div>
+</body>
+</html>
