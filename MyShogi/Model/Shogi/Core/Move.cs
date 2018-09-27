@@ -29,7 +29,9 @@ namespace MyShogi.Model.Shogi.Core
         WIN    ,  // 入玉時の宣言勝ちのために使う特殊な指し手
         WIN_THEM, // トライルールにおいて相手に入玉された局面であった
         DRAW   ,  // 引き分け。(CSAプロトコルにある) 引き分けの原因は不明。
-        MATED  ,  // 詰み(合法手がない)局面(手番側が詰まされていて合法手がない) 
+        MATED  ,  // 詰み(合法手がない)局面(手番側が詰まされていて合法手がない)による投了扱い
+        TSUMI  ,  // 詰将棋による詰み局面、詰将棋ルールである点でMATEDとは区別する
+        FUZUMI ,  // 詰将棋による不詰み局面
         REPETITION     , // 千日手(PSN形式で、DRAWかWINかわからない"Sennichite"という文字列が送られてくるのでその解釈用)
         REPETITION_DRAW, // 千日手引き分け
         REPETITION_WIN , // 千日手勝ち(相手の連続王手)
@@ -105,7 +107,7 @@ namespace MyShogi.Model.Shogi.Core
         /// <summary>
         /// mが、勝ち・負け・引き分けのいずれに属するかを返す。
         /// mは specail moveでなければならない。
-        /// 
+        ///
         /// 連続自己対局の時に結果の勝敗を判定する時などに用いる。
         /// m == INTERRUPTでもMoveGameResult.INTERRUPTではなくUNKNOWNが返るので注意。
         /// </summary>
@@ -148,7 +150,7 @@ namespace MyShogi.Model.Shogi.Core
 
         /// <summary>
         /// Move.IsOk()ではない指し手(Move.NONEも含む)に対して棋譜ウィンドウで使うような文字列化を行う。
-        /// 
+        ///
         /// KIF2ではきちんと規定されていないのでこれらの特別な指し手は棋譜ウィンドウでの表示において、
         /// 自前で文字列化しなくてはならない。
         /// </summary>
@@ -165,10 +167,12 @@ namespace MyShogi.Model.Shogi.Core
                     case Move.NONE:            return "none"; // これは使わないはず
                     case Move.NULL:            return "null";
                     case Move.RESIGN:          return "投了";
+                    case Move.MATED:           return "詰み"; // 詰み局面による中断
                     case Move.WIN:             return "入玉宣言勝ち";
                     case Move.WIN_THEM:        return "入玉トライ勝ち";
                     case Move.DRAW:            return "引き分け";
-                    case Move.MATED:           return "詰み";
+                    case Move.TSUMI:           return "詰み"; // 詰将棋における詰み
+                    case Move.FUZUMI:          return "不詰"; // 詰将棋における詰み
                     case Move.REPETITION:      return "千日手";
                     case Move.REPETITION_DRAW: return "千日手引分";
                     case Move.REPETITION_WIN:  return "千日手反則勝ち";
@@ -255,6 +259,7 @@ namespace MyShogi.Model.Shogi.Core
 
             if (m.IsSpecial())
                 return ((m == Move.RESIGN) ? "resign" :
+                        (m == Move.MATED) ? "resign" :
                         (m == Move.WIN)    ? "win" :
                         (m == Move.NULL)   ? "null" :
                     "");
@@ -284,7 +289,7 @@ namespace MyShogi.Model.Shogi.Core
 
         /// <summary>
         /// 指し手の移動先の升を返す。
-        /// 
+        ///
         /// 指し手がIsOk()でなければSquare.NBが返る。
         /// </summary>
         /// <param name="m"></param>
@@ -388,7 +393,7 @@ namespace MyShogi.Model.Shogi.Core
 
         /// <summary>
         /// 指し手を生成する
-        /// 
+        ///
         /// from : 盤上の升のみでなく手駒もありうる
         /// to   : 盤上の升
         /// promote : 成るかどうか

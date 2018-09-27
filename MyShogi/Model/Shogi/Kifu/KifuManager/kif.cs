@@ -285,7 +285,7 @@ namespace MyShogi.Model.Shogi.Kifu
                         else switch (mKif.Groups[3].Value)
                         {
                             case "投了":
-                                move = Move.RESIGN;
+                                move = Tree.position.IsMated(new Move[600]) ? Move.MATED : Move.RESIGN;
                                 break;
                             case "中断":
                             case "封じ手":
@@ -295,7 +295,10 @@ namespace MyShogi.Model.Shogi.Kifu
                                 move = Move.REPETITION_DRAW;
                                 break;
                             case "詰み":
-                                move = Move.MATED;
+                                move = Move.TSUMI;
+                                break;
+                            case "不詰":
+                                move = Move.FUZUMI;
                                 break;
                             case "時間切れ":
                             case "切れ負け":
@@ -378,13 +381,13 @@ namespace MyShogi.Model.Shogi.Kifu
                             case "で下手の勝ち":
                                 move = Tree.position.sideToMove == Color.BLACK ?
                                     Move.ILLEGAL_ACTION_WIN:
-                                    Move.RESIGN;
+                                    Tree.position.IsMated(new Move[600]) ? Move.MATED : Move.RESIGN;
                                 break;
                             case "で後手の勝ち":
                             case "で上手の勝ち":
                                 move = Tree.position.sideToMove == Color.WHITE ?
                                     Move.ILLEGAL_ACTION_WIN:
-                                    Move.RESIGN;
+                                    Tree.position.IsMated(new Move[600]) ? Move.MATED : Move.RESIGN;
                                 break;
                             case "で先手の反則勝ち":
                             case "で下手の反則勝ち":
@@ -421,7 +424,7 @@ namespace MyShogi.Model.Shogi.Kifu
                             case "詰み":
                             case "で詰":
                             case "で詰み":
-                                move = Move.MATED;
+                                move = Move.TSUMI;
                                 break;
                         }
                         if (move != Move.NONE)
@@ -622,9 +625,6 @@ namespace MyShogi.Model.Shogi.Kifu
 
                     switch (m)
                     {
-                        case Move.MATED:
-                            mes = "詰み";
-                            break;
                         case Move.INTERRUPT:
                             mes = "中断";
                             break;
@@ -644,7 +644,14 @@ namespace MyShogi.Model.Shogi.Kifu
                             mes = "最大手数超過";
                             break;
                         case Move.RESIGN:
+                        case Move.MATED:
                             mes = "投了";
+                            break;
+                        case Move.TSUMI:
+                            mes = "詰み";
+                            break;
+                        case Move.FUZUMI:
+                            mes = "不詰";
                             break;
                         case Move.TIME_UP:
                             mes = "時間切れ";
@@ -682,6 +689,7 @@ namespace MyShogi.Model.Shogi.Kifu
                     switch (m)
                     {
                         case Move.RESIGN:
+                        case Move.MATED:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で{sides[Tree.position.sideToMove.Not().ToInt()]}の勝ち");
                             break;
                         case Move.ILLEGAL_ACTION_WIN:
@@ -709,8 +717,11 @@ namespace MyShogi.Model.Shogi.Kifu
                         case Move.MAX_MOVES_DRAW:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で持将棋");
                             break;
-                        case Move.MATED:
+                        case Move.TSUMI:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で詰み");
+                            break;
+                        case Move.FUZUMI:
+                            sb.AppendLine($"まで{Tree.gamePly - 1}手で不詰");
                             break;
                         default:
                             break;
@@ -904,6 +915,7 @@ namespace MyShogi.Model.Shogi.Kifu
                     switch (m)
                     {
                         case Move.RESIGN:
+                        case Move.MATED:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で{sides[Tree.position.sideToMove.Not().ToInt()]}の勝ち");
                             break;
                         case Move.ILLEGAL_ACTION_WIN:
@@ -931,8 +943,11 @@ namespace MyShogi.Model.Shogi.Kifu
                         case Move.MAX_MOVES_DRAW:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で持将棋");
                             break;
-                        case Move.MATED:
+                        case Move.TSUMI:
                             sb.AppendLine($"まで{Tree.gamePly - 1}手で詰み");
+                            break;
+                        case Move.FUZUMI:
+                            sb.AppendLine($"まで{Tree.gamePly - 1}手で不詰");
                             break;
                         default:
                             break;

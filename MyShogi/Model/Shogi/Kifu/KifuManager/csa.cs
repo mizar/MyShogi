@@ -262,7 +262,7 @@ namespace MyShogi.Model.Shogi.Kifu
                         switch (match.Groups[0].Value)
                         {
                             case "%TORYO":
-                                move = Move.RESIGN;
+                                move = Tree.position.IsMated(new Move[600]) ? Move.MATED : Move.RESIGN;
                                 break;
                             case "%CHUDAN":
                                 move = Move.INTERRUPT;
@@ -280,7 +280,10 @@ namespace MyShogi.Model.Shogi.Kifu
                                 move = Move.WIN;
                                 break;
                             case "%TSUMI":
-                                move = Move.MATED;
+                                move = Move.TSUMI;
+                                break;
+                            case "%FUZUMI":
+                                move = Move.FUZUMI;
                                 break;
                             case "%ILLEGAL_MOVE":
                                 move = Move.ILLEGAL_MOVE;
@@ -295,7 +298,6 @@ namespace MyShogi.Model.Shogi.Kifu
                                 move = Move.DRAW;
                                 break;
                             // 以下、適切な変換先不明
-                            case "%FUZUMI":
                             case "%MATTA":
                             case "%ERROR":
                             default:
