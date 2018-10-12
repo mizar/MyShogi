@@ -11,23 +11,31 @@ namespace MyShogi.Model.Common.Math
         /// <summary>
         /// 収束条件
         /// </summary>
-        public const double DOUBLE_MEPS = 2.2204460492503130808472633361816e-16;
-        public const double DOUBLE_EPS3 = double.Epsilon * 3;
-        public const double DOUBLE_ME100 = DOUBLE_MEPS * 100;
+        public const double MEPS = 2.2204460492503130808472633361816e-16;
+        public const double EPS3 = double.Epsilon * 3;
+        public const double ME100 = MEPS * 100;
 
+        public const double NaN = double.NaN;
+        public const double PositiveInfinity = double.PositiveInfinity;
+        public const double NegativeInfinity = double.NegativeInfinity;
+        public const double PI = SMath.PI;
         public const double LN2 = 0.69314718055994530941723212145818;
         public const double LN10 = 2.3025850929940456840179914546844;
         public const double LOGE = 0.43429448190325182765112891891661;
 
-        // SMath.Log(SMath.Sqrt(2 * SMath.PI)) == 0.91893853320467274178032973640562
-        const double half_log_2pi = 0.91893853320467274178032973640562;
+        const double HalfLog2PI = 0.91893853320467274178032973640562; // Log(Sqrt(2 * PI))
 
-        /// <summary>
-        /// 自乗
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        private static double Sq(double x) => x * x;
+        private static bool IsNaN(double x) => double.IsNaN(x);
+        private static double Abs(double x) => SMath.Abs(x);
+        private static double Floor(double x) => SMath.Floor(x);
+        private static double Ceiling(double x) => SMath.Ceiling(x);
+        private static double Sqrt(double x) => SMath.Sqrt(x);
+        private static double Exp(double x) => SMath.Exp(x);
+        private static double Pow(double x, double y) => SMath.Pow(x, y);
+        private static double Log(double x) => SMath.Log(x);
+        private static double Sin(double x) => SMath.Sin(x);
+        private static double Min(double x, double y) => SMath.Min(x, y);
+        private static double Max(double x, double y) => SMath.Max(x, y);
 
         /// <summary>
         /// log(1+x)
@@ -39,8 +47,8 @@ namespace MyShogi.Model.Common.Math
         /// <returns></returns>
         public static double Log1p(double x)
         {
-            if (double.IsNaN(x)) return double.NaN;
-            if (x < -0.5 || x > +1.0) return SMath.Log(1 + x);
+            if (IsNaN(x)) return NaN;
+            if (x < -0.5 || x > +1.0) return Log(1 + x);
             // -1/3 <= y <= +1/3
             var y = x / (x + 2);
             // 0 <= y2 <= 1/9
@@ -53,7 +61,7 @@ namespace MyShogi.Model.Common.Math
                 var ps = s;
                 p *= y2;
                 s += p / i;
-                if (SMath.Abs(s - ps) < DOUBLE_EPS3) break;
+                if (Abs(s - ps) < EPS3) break;
             }
             return s;
         }
@@ -65,8 +73,8 @@ namespace MyShogi.Model.Common.Math
         /// <returns></returns>
         public static double Expm1(double x)
         {
-            if (double.IsNaN(x)) return double.NaN;
-            if (x < -2 || x > 2) return SMath.Exp(x) - 1;
+            if (IsNaN(x)) return NaN;
+            if (x < -2 || x > 2) return Exp(x) - 1;
             var p = x;
             var s = x;
 
@@ -75,7 +83,7 @@ namespace MyShogi.Model.Common.Math
                 var ps = s;
                 p *= x / i;
                 s += p;
-                if (SMath.Abs(s - ps) < DOUBLE_EPS3) break;
+                if (Abs(s - ps) < EPS3) break;
             }
             return s;
         }
@@ -87,7 +95,7 @@ namespace MyShogi.Model.Common.Math
         /// <returns></returns>
         public static double Log1mExp(double x)
             => !(x < 0) ? double.NaN :
-            x > -LN2 ? SMath.Log(-Expm1(x)) : Log1p(-SMath.Exp(x));
+            x > -LN2 ? Log(-Expm1(x)) : Log1p(-Exp(x));
 
         /// <summary>
         /// log(1+exp(x))
@@ -95,7 +103,7 @@ namespace MyShogi.Model.Common.Math
         /// <param name="x"></param>
         /// <returns></returns>
         public static double Log1pExp(double x)
-            => x <= 0 ? Log1p(SMath.Exp(x)) : (x + Log1p(SMath.Exp(-x)));
+            => x <= 0 ? Log1p(Exp(x)) : (x + Log1p(Exp(-x)));
 
         /// <summary>
         /// ロジット関数
@@ -103,10 +111,10 @@ namespace MyShogi.Model.Common.Math
         /// <param name="x"></param>
         /// <returns></returns>
         public static double EnLogit(double x) =>
-            double.IsNaN(x) ? double.NaN :
-            (x <= 0) ? double.NegativeInfinity :
-            (x >= 1) ? double.PositiveInfinity :
-            SMath.Log(x / (1 - x));
+            IsNaN(x) ? NaN :
+            (x <= 0) ? NegativeInfinity :
+            (x >= 1) ? PositiveInfinity :
+            Log(x) - Log1p(-x);
 
         /// <summary>
         /// 逆ロジット関数（ロジスティック関数）
@@ -117,12 +125,12 @@ namespace MyShogi.Model.Common.Math
         {
             if (logit > 0)
             {
-                var nexp = SMath.Exp(-logit);
+                var nexp = Exp(-logit);
                 return 1 / (nexp + 1);
             }
             else
             {
-                var pexp = SMath.Exp(logit);
+                var pexp = Exp(logit);
                 return pexp / (pexp + 1);
             }
         }
@@ -141,14 +149,6 @@ namespace MyShogi.Model.Common.Math
             public double Nx { get; }
             public double LogPx { get; }
             public double LogNx { get; }
-            public Logit(double logit)
-            {
-                V = logit;
-                Px = DeLogit(logit);
-                Nx = DeLogit(-logit);
-                LogPx = LogDeLogit(logit);
-                LogNx = LogDeLogit(-logit);
-            }
             private Logit(double logit, double px, double nx, double logpx, double lognx)
             {
                 V = logit;
@@ -157,7 +157,14 @@ namespace MyShogi.Model.Common.Math
                 LogPx = logpx;
                 LogNx = lognx;
             }
-            public Logit Negate() => new Logit(-V, Nx, Px, LogNx, LogPx);
+            public static Logit FromLogit(double logit) =>
+                new Logit(logit, DeLogit(logit), DeLogit(-logit), LogDeLogit(logit), LogDeLogit(-logit));
+            public static Logit FromPx(double px) =>
+                new Logit(EnLogit(px), px, 1 - px, Log(px), Log1p(-px));
+            public static Logit FromNx(double nx) =>
+                new Logit(-EnLogit(nx), 1 - nx, nx, Log1p(-nx), Log(nx));
+            public Logit Negate() =>
+                new Logit(-V, Nx, Px, LogNx, LogPx);
         }
 
         /// <summary>
@@ -173,38 +180,36 @@ namespace MyShogi.Model.Common.Math
             // パラメータ算出 : https://mrob.com/pub/ries/lanczos-gamma.html
             if (z < 0.5)
             {
-                // SMath.Log(SMath.PI) = 1.1447298858494001741434273513531
+                // Log(PI) = 1.1447298858494001741434273513531
                 const double log_pi = 1.1447298858494001741434273513531;
-                return log_pi - SMath.Log(SMath.Sin(SMath.PI * z)) - GammaLn(1 - z);
+                return log_pi - Log(Sin(PI * z)) - GammaLn(1 - z);
             }
 
             // g = 607.0 / 128.0;
             var g = 4.7421875;
-            var x = 0.99999999999999709182;
+            var x = -2.90818e-15;
             double[] p = {
                 57.156235665862923517,
                 -59.597960355475491248,
                 14.136097974741747174,
                 -0.49191381609762019978,
-                .33994649984811888699e-4,
-                .46523628927048575665e-4,
-                -.98374475304879564677e-4,
-                .15808870322491248884e-3,
-                -.21026444172410488319e-3,
-                .21743961811521264320e-3,
-                -.16431810653676389022e-3,
-                .84418223983852743293e-4,
-                -.26190838401581408670e-4,
-                .36899182659531622704e-5,
+                0.33994649984811888699e-4,
+                0.46523628927048575665e-4,
+                -0.98374475304879564677e-4,
+                0.15808870322491248884e-3,
+                -0.21026444172410488319e-3,
+                0.21743961811521264320e-3,
+                -0.16431810653676389022e-3,
+                0.84418223983852743293e-4,
+                -0.26190838401581408670e-4,
+                0.36899182659531622704e-5,
             };
-
-            z -= 1;
-            foreach (var item in p.Select((value, index) => new { value, index }))
+            for (var i = p.Length - 1; i >= 0; --i)
             {
-                x += item.value / (z + item.index + 1);
+                x += p[i] / (z + i);
             }
-            var t = z + g + 0.5;
-            return SMath.Log(t) * (z + 0.5) - t + half_log_2pi + SMath.Log(x);
+            var t = g - 0.5 + z;
+            return (Log(t) - 1) * (z - 0.5) - g + HalfLog2PI + Log1p(x);
         }
 
         /// <summary>
@@ -213,8 +218,8 @@ namespace MyShogi.Model.Common.Math
         /// <param name="z"></param>
         /// <returns></returns>
         public static double Gamma(double z)
-            => z >= 0.5 ? SMath.Exp(GammaLn(z)) :
-            SMath.PI / (SMath.Sin(SMath.PI * z) * SMath.Exp(GammaLn(1 - z)));
+            => z >= 0.5 ? Exp(GammaLn(z)) :
+            PI / (Sin(PI * z) * Exp(GammaLn(1 - z)));
 
         /// <summary>
         /// 規格化第1種不完全ガンマ関数
@@ -226,21 +231,21 @@ namespace MyShogi.Model.Common.Math
         public static double GammaP(double a, double x)
         {
             if (!(a > 0 && x > 0)) return double.NaN;
-            var t = SMath.Exp(SMath.Log(x) * a - GammaLn(a));
+            var t = Exp(Log(x) * a - GammaLn(a));
             var s = t / a;
             for (var k = 1; k <= 1000; ++k)
             {
                 var ps = s;
                 t *= -x / k;
                 s += t / (a + k);
-                if (SMath.Abs(ps - s) < DOUBLE_EPS3) break;
+                if (Abs(ps - s) < EPS3) break;
             }
             return s;
         }
 
         /// <summary>
-        /// 規格化第2種不完全ガンマ関数
-        /// GammaQ(a, x) = Γ(a, x) / Γ(a) = 1 - GammaP(a, x)
+        /// 規格化第2種不完全ガンマ関数の対数
+        /// LogGammaQ(a, x) = Log(GammaQ(a, x) = Log(Γ(a, x) / Γ(a)) = Log(1 - GammaP(a, x))
         /// </summary>
         /// <param name="a"></param>
         /// <param name="x"></param>
@@ -268,24 +273,31 @@ namespace MyShogi.Model.Common.Math
                 u = beta + alpha / pu;
                 v = beta + alpha / pv;
                 d = u / v * pd;
-                if (SMath.Abs(d - pd) <= DOUBLE_EPS3) break;
+                if (Abs(d - pd) <= EPS3) break;
             }
 
-            return SMath.Log(x) * a - x - GammaLn(a) - SMath.Log(d);
+            return Log(x) * a - x - GammaLn(a) - Log(d);
         }
 
-        public static double GammaQ(double a, double x) => SMath.Exp(LogGammaQ(a, x));
+        /// <summary>
+        /// 規格化第2種不完全ガンマ関数
+        /// GammaQ(a, x) = Γ(a, x) / Γ(a) = 1 - GammaP(a, x)
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static double GammaQ(double a, double x) => Exp(LogGammaQ(a, x));
 
         /// <summary>
         /// 誤差関数
-        /// * 不完全ガンマ関数
-        ///   * https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0
-        ///   * https://en.wikipedia.org/wiki/Incomplete_gamma_function
-        ///   * https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_gamma/igamma.html#math_toolkit.sf_gamma.igamma.implementation
+        /// - 不完全ガンマ関数
+        ///   - https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0
+        ///   - https://en.wikipedia.org/wiki/Incomplete_gamma_function
+        ///   - https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_gamma/igamma.html#math_toolkit.sf_gamma.igamma.implementation
         /// </summary>
         public static double Erf(double z)
         {
-            if (double.IsNaN(z)) return double.NaN;
+            if (IsNaN(z)) return NaN;
             if (z == 0) return 0;
             if (z < -0.5) return Erfc(-z) - 1;
             if (z < 0) return -Erf(-z);
@@ -293,7 +305,7 @@ namespace MyShogi.Model.Common.Math
             // 1/Sqrt(PI)
             const double invSqrtPi = 0.56418958354775628694807945156077;
 
-            var zSq = Sq(z);
+            var zSq = z * z;
 
             var t = invSqrtPi * z;
             var s = t + t;
@@ -303,7 +315,7 @@ namespace MyShogi.Model.Common.Math
                 t *= -zSq / m;
                 var ps = s;
                 s += t / (m + 0.5);
-                if (SMath.Abs(s - ps) < DOUBLE_EPS3) break;
+                if (Abs(s - ps) < EPS3) break;
             }
 
             return s;
@@ -311,22 +323,22 @@ namespace MyShogi.Model.Common.Math
 
         /// <summary>
         /// スケーリング相補誤差関数
-        /// * 不完全ガンマ関数
-        ///   * https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0
-        ///   * https://en.wikipedia.org/wiki/Incomplete_gamma_function
-        ///   * https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_gamma/igamma.html#math_toolkit.sf_gamma.igamma.implementation
-        /// * 連分数の計算法
-        ///   * πとeの連分数展開とその数値計算法 - Expansions of π and e into Continued Fractions and their Numerical Evaluation
+        /// - 不完全ガンマ関数
+        ///   - https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%AE%8C%E5%85%A8%E3%82%AC%E3%83%B3%E3%83%9E%E9%96%A2%E6%95%B0
+        ///   - https://en.wikipedia.org/wiki/Incomplete_gamma_function
+        ///   - https://www.boost.org/doc/libs/1_68_0/libs/math/doc/html/math_toolkit/sf_gamma/igamma.html#math_toolkit.sf_gamma.igamma.implementation
+        /// - 連分数の計算法
+        ///   - πとeの連分数展開とその数値計算法 - Expansions of π and e into Continued Fractions and their Numerical Evaluation
         ///     https://ci.nii.ac.jp/naid/110006459103
         /// </summary>
         public static double Erfcx(double z)
         {
-            if (double.IsNaN(z)) return double.NaN;
+            if (IsNaN(z)) return NaN;
 
-            var zSq = Sq(z);
+            var zSq = z * z;
 
-            // z < .5 では Erf() から算出
-            if (z < .5) return SMath.Exp(zSq) * (1 - Erf(z));
+            // z < 0.5 では Erf() から算出
+            if (z < 0.5) return Exp(zSq) * (1 - Erf(z));
 
             double aFunc(int m) => m * (0.5 - m);
             double bFunc(int m) => m + m + zSq + 0.5;
@@ -348,7 +360,7 @@ namespace MyShogi.Model.Common.Math
                 u = beta + alpha / pu;
                 v = beta + alpha / pv;
                 d = u / v * pd;
-                if (SMath.Abs(d - pd) <= DOUBLE_EPS3) break;
+                if (Abs(d - pd) <= EPS3) break;
             }
 
             // 1/Sqrt(PI)
@@ -361,7 +373,7 @@ namespace MyShogi.Model.Common.Math
         /// 相補誤差関数
         /// </summary>
         public static double Erfc(double z)
-            => z < 0.5 ? 1 - Erf(z) : SMath.Exp(-Sq(z)) * Erfcx(z);
+            => z < 0.5 ? 1 - Erf(z) : Exp(-z * z) * Erfcx(z);
 
         /// <summary>
         /// 逆相補誤差関数
@@ -370,11 +382,11 @@ namespace MyShogi.Model.Common.Math
         /// <returns></returns>
         public static double ErfcInv(double x)
         {
-            if (double.IsNaN(x)) return double.NaN;
-            if (x == 0) return double.PositiveInfinity;
+            if (IsNaN(x)) return NaN;
+            if (x == 0) return PositiveInfinity;
             if (x == 1) return 0;
-            if (x == 2) return double.NegativeInfinity;
-            if (!(0 <= x && x <= 2)) return double.NaN;
+            if (x == 2) return NegativeInfinity;
+            if (!(0 <= x && x <= 2)) return NaN;
 
             var minz = x < 1 ? 0.0 : -6.0;
             var maxz = x < 1 ? 28.0 : 0.0;
@@ -385,7 +397,7 @@ namespace MyShogi.Model.Common.Math
             for (var n = 1; n <= 1000; ++n)
             {
                 var pivx = Erfc(pivz);
-                if (SMath.Abs(x - pivx) <= DOUBLE_EPS3) break;
+                if (Abs(x - pivx) <= EPS3) break;
                 if (pivx < x)
                 {
                     maxz = pivz;
@@ -397,7 +409,7 @@ namespace MyShogi.Model.Common.Math
                     minx = pivx;
                 }
                 pivz = 0.5 * (minz + maxz);
-                if (SMath.Min(SMath.Abs(pivz - minz), SMath.Abs(maxz - pivz)) <= DOUBLE_EPS3) break;
+                if (Min(Abs(pivz - minz), Abs(maxz - pivz)) <= EPS3) break;
             }
             return pivz;
         }
@@ -431,10 +443,10 @@ namespace MyShogi.Model.Common.Math
         /// <returns></returns>
         public static double Beta(double x, double y)
         {
-            if (x > 0 && y > 0) return SMath.Exp(GammaLn(x) + GammaLn(y) - GammaLn(x + y));
+            if (x > 0 && y > 0) return Exp(GammaLn(x) + GammaLn(y) - GammaLn(x + y));
             if (!(x + y > 0)) return Gamma(x) * Gamma(y) / Gamma(x + y);
-            if (x > 0) return SMath.Exp(GammaLn(x) - GammaLn(x + y)) * Gamma(y);
-            if (y > 0) return SMath.Exp(GammaLn(y) - GammaLn(x + y)) * Gamma(x);
+            if (x > 0) return Exp(GammaLn(x) - GammaLn(x + y)) * Gamma(y);
+            if (y > 0) return Exp(GammaLn(y) - GammaLn(x + y)) * Gamma(x);
             return Gamma(x) * Gamma(y) / Gamma(x + y);
         }
 
@@ -449,7 +461,7 @@ namespace MyShogi.Model.Common.Math
             var t = 0.0;
             for (var i = 1; i < n; ++i)
             {
-                t += logit.LogPx + SMath.Log((a + b + i - 1) / (a + i));
+                t += logit.LogPx + Log((a + b + i - 1) / (a + i));
                 s += Log1pExp(t - s);
             }
             return s;
@@ -466,7 +478,7 @@ namespace MyShogi.Model.Common.Math
             var t = 0.0;
             for (var i = 1; i < n; ++i)
             {
-                t += logit.LogNx + SMath.Log((a + b + i - 1) / (b + i));
+                t += logit.LogNx + Log((a + b + i - 1) / (b + i));
                 s += Log1pExp(t - s);
             }
             return s;
@@ -482,8 +494,6 @@ namespace MyShogi.Model.Common.Math
         ///     http://www.dtic.mil/dtic/tr/fulltext/u2/a210118.pdf
         ///   * Armido R. Didonato and Alfred H. Morris, Jr.. 1992. Algorithm 708: Significant digit computation of the incomplete beta function ratios. ACM Trans. SMath. Softw. 18, 3 (September 1992), 360-373.
         ///     DOI: https://doi.org/10.1145/131766.131776
-        ///   * Derivatives of the Incomplete Beta Function
-        ///     https://www.jstatsoft.org/article/view/v003i01/beta.der.pdf
         /// * 連分数の計算法
         ///   * πとeの連分数展開とその数値計算法 - Expansions of π and e into Continued Fractions and their Numerical Evaluation
         ///     https://ci.nii.ac.jp/naid/110006459103
@@ -492,7 +502,7 @@ namespace MyShogi.Model.Common.Math
         /// <param name="b"></param>
         /// <param name="x"></param>
         /// <returns></returns>
-        public static double IBeta(double a, double b, double x) => IBetaLogit(a, b, new Logit(EnLogit(x)));
+        public static double IBeta(double a, double b, double x) => IBetaLogit(a, b, Logit.FromPx(x));
 
         /// <summary>
         /// 正則ベータ関数（但し、x値の代わりに logit(x) = log(x / (1 - x)) で入力）
@@ -501,7 +511,7 @@ namespace MyShogi.Model.Common.Math
         /// <param name="b"></param>
         /// <param name="logit"></param>
         /// <returns></returns>
-        public static double IBetaLogit(double a, double b, double logit) => IBetaLogit(a, b, new Logit(logit));
+        public static double IBetaLogit(double a, double b, double logit) => IBetaLogit(a, b, Logit.FromLogit(logit));
 
         /// <summary>
         /// 正則ベータ関数（但し、x値の代わりに logit(x) = log(x / (1 - x)) で入力）
@@ -524,16 +534,18 @@ namespace MyShogi.Model.Common.Math
             if (logit.Px == 0) return 0;
             // $ I_1(a, b) = 1 $
             if (logit.Nx == 0) return 1;
-            // $ I_x(a, 1) = x ^ a $
-            if (b == 1)
-                return SMath.Exp(logit.LogPx * a);
-            if (b <= 260 && b == SMath.Floor(b))
-                return SMath.Exp(logit.LogPx * a + Log1pExp(SMath.Log(a) + lognx + IBeta_BMod(a, 1, (int)(b - 1), logit)));
             // $ I_x(1, b) = (1 - x) ^ b $
             if (a == 1)
                 return -Expm1(logit.LogNx * b);
-            if (a <= 260 && a == SMath.Floor(a))
-                return -Expm1(logit.LogNx * b + Log1pExp(SMath.Log(b) + logpx + IBeta_AMod(1, b, (int)(a - 1), logit)));
+            // $ I_x(a, 1) = x ^ a $
+            if (b == 1)
+                return Exp(logit.LogPx * a);
+            // $ I_x(1, b) = (1 - x) ^ b $
+            if (a <= 260 && a == Floor(a))
+                return -Expm1(logit.LogNx * b + Log1pExp(Log(b) + logpx + IBeta_AMod(1, b, (int)(a - 1), logit)));
+            // $ I_x(a, 1) = x ^ a $
+            if (b <= 260 && b == Floor(b))
+                return Exp(logit.LogPx * a + Log1pExp(Log(a) + lognx + IBeta_BMod(a, 1, (int)(b - 1), logit)));
 
             var p = a / (a + b);
             var q = b / (a + b);
@@ -548,12 +560,12 @@ namespace MyShogi.Model.Common.Math
 
             // $ I_x(a, b) = I_x(a + 1, b) + \frac{x^a (1 - x)^b}{a B(a, b)} $
             if (a < 1) return logit.v < 0 ?
-                IBetaLogit(a + 1, b, logit) + SMath.Exp(logpx * a + lognx * b - BetaLn(a, b)) / a:
-                IBetaLogit(a + 1, b, logit) + SMath.Exp(logpx * a + lognx * b - BetaLn(a, b)) / a;
+                IBetaLogit(a + 1, b, logit) + Exp(logpx * a + lognx * b - BetaLn(a, b)) / a:
+                IBetaLogit(a + 1, b, logit) + Exp(logpx * a + lognx * b - BetaLn(a, b)) / a;
             // $ I_x(a, b) = I_x(a, b + 1) - \frac{x^a (1 - x)^b}{b B(a, b)} $
             if (b < 1) return logit.v < 0 ?
-                IBetaLogit(a, b + 1, logit) - SMath.Exp(logpx * a + lognx * b - BetaLn(a, b)) / b:
-                IBetaLogit(a, b + 1, logit) - SMath.Exp(logpx * a + lognx * b - BetaLn(a, b)) / b;
+                IBetaLogit(a, b + 1, logit) - Exp(logpx * a + lognx * b - BetaLn(a, b)) / b:
+                IBetaLogit(a, b + 1, logit) - Exp(logpx * a + lognx * b - BetaLn(a, b)) / b;
 
             // b < 40, bx <= .7
             if (a > 1 && b > 1 && b < 40 && b * px <= 0.7)
@@ -591,15 +603,15 @@ namespace MyShogi.Model.Common.Math
             var lognx = logit.LogNx;
             if (a <= 15)
             {
-                var n = 16 - (int)SMath.Ceiling(a);
+                var n = 16 - (int)Ceiling(a);
                 var an = a + n;
-                return IBeta_BUP_BGRAT(an, b, logit) + SMath.Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_AMod(a, b, n, logit)) / a;
+                return IBeta_BUP_BGRAT(an, b, logit) + Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_AMod(a, b, n, logit)) / a;
             }
             if (b > 1)
             {
-                var n = (int)SMath.Ceiling(b) - 1;
+                var n = (int)Ceiling(b) - 1;
                 var bn = b - n;
-                return IBeta_BUP_BGRAT(a, bn, logit) + SMath.Exp(logpx * a + lognx * bn - BetaLn(a, bn) + IBeta_BMod(a, bn, n, logit)) / bn;
+                return IBeta_BUP_BGRAT(a, bn, logit) + Exp(logpx * a + lognx * bn - BetaLn(a, bn) + IBeta_BMod(a, bn, n, logit)) / bn;
             }
             return IBeta_BGRAT(a, b, logit);
         }
@@ -618,11 +630,11 @@ namespace MyShogi.Model.Common.Math
             var logx = logit.LogPx;
             var t = a + (b - 1) * 0.5;
             var u = -t * logx;
-            var logr = -u + SMath.Log(u) * b - GammaLn(b);
-            var m = SMath.Exp(logr + GammaLn(a + b) - GammaLn(a)) * SMath.Pow(t, -b);
+            var logr = -u + Log(u) * b - GammaLn(b);
+            var m = Exp(logr + GammaLn(a + b) - GammaLn(a)) * Pow(t, -b);
             var p = new List<double> { 1.0 };
             var logqb = LogGammaQ(b, u);
-            var j = new List<double> { SMath.Exp(LogGammaQ(b, u) - logr) };
+            var j = new List<double> { Exp(LogGammaQ(b, u) - logr) };
             var c = new List<double> { 1.0 };
             var s = p[0] * j[0];
             for (var n = 1; n < 1000; ++n)
@@ -634,10 +646,10 @@ namespace MyShogi.Model.Common.Math
                     sx += (_m * b - n) * c[_m] * p[n - _m];
                 }
                 p.Add((b - 1) * c[n] + sx / n);
-                j.Add(((b + 2 * n - 2) * (b + 2 * n - 1) * j[n - 1] + (u + b + 2 * n - 1) * SMath.Pow(logx * 0.5, 2 * n)) / Sq(2 * t));
+                j.Add(((b + 2 * n - 2) * (b + 2 * n - 1) * j[n - 1] + (u + b + 2 * n - 1) * Pow(logx * 0.5, 2 * n)) / (4 * t * t));
                 var ps = s;
                 s += p[n] * j[n];
-                if (SMath.Abs(ps - s) < DOUBLE_EPS3) break;
+                if (Abs(ps - s) < EPS3) break;
             }
             var ms = m * s;
             return ms;
@@ -662,10 +674,10 @@ namespace MyShogi.Model.Common.Math
                 var ps = s;
                 t *= x * (j - b) / j;
                 s += t / (a + j);
-                if (SMath.Abs(s - ps) < DOUBLE_EPS3) break;
+                if (Abs(s - ps) < EPS3) break;
             }
 
-            return s * SMath.Exp(logx * a - BetaLn(a, b));
+            return s * Exp(logx * a - BetaLn(a, b));
         }
 
         /// <summary>
@@ -683,13 +695,13 @@ namespace MyShogi.Model.Common.Math
             var lognx = logit.LogNx;
             if (a <= 2)
             {
-                var n = 3 - (int)SMath.Ceiling(a);
-                return IBeta_BUP_BFRAC(a + n, b, logit) + SMath.Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_AMod(a, b, n, logit)) / a;
+                var an = 3 - (int)Ceiling(a);
+                return IBeta_BUP_BFRAC(a + an, b, logit) + Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_AMod(a, b, an, logit)) / a;
             }
             if (b <= 2)
             {
-                var n = 3 - (int)SMath.Ceiling(b);
-                return IBeta_BUP_BFRAC(a, b + n, logit) - SMath.Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_BMod(a, b, n, logit)) / b;
+                var bn = 3 - (int)Ceiling(b);
+                return IBeta_BUP_BFRAC(a, b + bn, logit) - Exp(logpx * a + lognx * b - BetaLn(a, b) + IBeta_BMod(a, b, bn, logit)) / b;
             }
             return IBeta_BFRAC(a, b, logit);
         }
@@ -700,6 +712,7 @@ namespace MyShogi.Model.Common.Math
             var nx = logit.Nx;
             var logpx = logit.LogPx;
             var lognx = logit.LogNx;
+            double Sq(double x) => x * x;
             double aFunc(int m) => (a + (m - 1)) * (a + b + (m - 1)) * m * (b - m) * Sq(px / (a + (m + m - 1)));
             double bFunc(int m) => m + m * (b - m) * px / (a + (m + m - 1)) + (a + m) * (a - (a + b) * px + 1 + m * (2 - px)) / (a + (m + m + 1));
             var a0 = bFunc(0);
@@ -720,10 +733,10 @@ namespace MyShogi.Model.Common.Math
                 u = beta + alpha / pu;
                 v = beta + alpha / pv;
                 d *= u / v;
-                if (!(SMath.Abs(d - pd) > DOUBLE_EPS3)) break;
+                if (!(Abs(d - pd) > EPS3)) break;
             }
 
-            return SMath.Exp(logpx * a + lognx * b - BetaLn(a, b)) / d;
+            return Exp(logpx * a + lognx * b - BetaLn(a, b)) / d;
         }
 
         private static double IBeta_BASYM(double a, double b, Logit logit)
@@ -736,20 +749,20 @@ namespace MyShogi.Model.Common.Math
             const double half_sqrt_pi_inv = 1.1283791670955125738961589031215;
             var p = a / (a + b);
             var q = b / (a + b);
-            var logp = SMath.Log(p);
-            var logq = SMath.Log(q);
+            var logp = Log(p);
+            var logq = Log(q);
             var phix = -a * (logit.LogPx - logp) - b * (logit.LogNx - logq);
-            var z = SMath.Sqrt(phix);
-            var betagamma = SMath.Sqrt(a <= b ? (q / a) : (p / b));
+            var z = Sqrt(phix);
+            var betagamma = Sqrt(a <= b ? (q / a) : (p / b));
             var bg = 1.0;
             var abrate = a <= b ? a / b : b / a;
             var ab = 1.0;
             var al = new List<double>();
             var cl = new List<double>();
             var el = new List<double> { 1 };
-            var ll = new List<double> { SMath.PI / 8 * Erfcx(z), sqrt1_8 };
+            var ll = new List<double> { PI / 8 * Erfcx(z), sqrt1_8 };
             var s = 0.0;
-            double dfn(double t) => GammaLn(t) - (t - 0.5) * SMath.Log(t) + t - half_log_2pi;
+            double dfn(double t) => GammaLn(t) - (t - 0.5) * Log(t) + t - HalfLog2PI;
             for (var n = 0; n <= 100; ++n)
             {
                 ab *= abrate;
@@ -781,14 +794,14 @@ namespace MyShogi.Model.Common.Math
                     el.Add(ev);
                 }
                 if (n > 1)
-                    ll.Add(sqrt1_8 * SMath.Pow(sqrt2 * z, n - 1) + (n - 1) * ll[n - 2]);
+                    ll.Add(sqrt1_8 * Pow(sqrt2 * z, n - 1) + (n - 1) * ll[n - 2]);
                 var ps = s;
                 s += el[n] * ll[n] * bg;
-                if (SMath.Abs(s - ps) < SMath.Abs(s * DOUBLE_ME100))
+                if (Abs(s - ps) < Abs(s * ME100))
                     break;
                 bg *= betagamma;
             }
-            return half_sqrt_pi_inv * SMath.Exp(dfn(a + b) - dfn(a) - dfn(b) - Sq(z)) * SMath.Sqrt(2 * (a + b) / (a * b)) * s;
+            return half_sqrt_pi_inv * Exp(dfn(a + b) - dfn(a) - dfn(b) - z * z) * Sqrt(2 * (a + b) / (a * b)) * s;
         }
 
         /// <summary>
@@ -801,8 +814,8 @@ namespace MyShogi.Model.Common.Math
         public static double InvBeta(double a, double b, double p)
         {
             // 0 < a, 0 < b, 0 <= p <= 1
-            if (!(a > 0 && b > 0)) return double.NaN;
-            if (!(p >= 0 && p <= 1)) return double.NaN;
+            if (!(a > 0 && b > 0)) return NaN;
+            if (!(p >= 0 && p <= 1)) return NaN;
             if (p == 0) return 0;
             if (p == 1) return 1;
 
@@ -814,13 +827,13 @@ namespace MyShogi.Model.Common.Math
 
             for (var n = 1; n <= 1000; ++n)
             {
-                var dpl = SMath.Max(p - minp, 0);
-                var dph = SMath.Max(maxp - p, 0);
-                pivx = minx + SMath.Max(SMath.Min(dpl / (dpl + dph), 0.9375), 0.0625) * (maxx - minx);
-                if (SMath.Max(0, SMath.Min(SMath.Abs(pivx - minx), SMath.Abs(maxx - pivx))) <= DOUBLE_EPS3) pivx = (minx + maxx) * 0.5;
-                if (SMath.Min(SMath.Abs(pivx - minx), SMath.Abs(maxx - pivx)) <= DOUBLE_EPS3) break;
+                var dpl = Max(p - minp, 0);
+                var dph = Max(maxp - p, 0);
+                pivx = minx + Max(Min(dpl / (dpl + dph), 0.9375), 0.0625) * (maxx - minx);
+                if (Max(0, Min(Abs(pivx - minx), Abs(maxx - pivx))) <= EPS3) pivx = (minx + maxx) * 0.5;
+                if (Min(Abs(pivx - minx), Abs(maxx - pivx)) <= EPS3) break;
                 var pivp = IBeta(a, b, pivx);
-                if (SMath.Abs(p - pivp) <= DOUBLE_EPS3) break;
+                if (Abs(p - pivp) <= EPS3) break;
                 if (pivp < p)
                 {
                     minx = pivx;
@@ -845,8 +858,8 @@ namespace MyShogi.Model.Common.Math
         public static double InvBetaLogit(double a, double b, double p)
         {
             // 0 < a, 0 < b, 0 <= p <= 1
-            if (!(a > 0 && b > 0)) return double.NaN;
-            if (!(p >= 0 && p <= 1)) return double.NaN;
+            if (!(a > 0 && b > 0)) return NaN;
+            if (!(p >= 0 && p <= 1)) return NaN;
             if (p == 0) return 0;
             if (p == 1) return 1;
 
@@ -858,13 +871,13 @@ namespace MyShogi.Model.Common.Math
 
             for (var n = 1; n <= 1000; ++n)
             {
-                var dpl = SMath.Max(p - minp, 0);
-                var dph = SMath.Max(maxp - p, 0);
-                pivx = minx + SMath.Max(SMath.Min(dpl / (dpl + dph), 0.9375), 0.0625) * (maxx - minx);
-                if (SMath.Max(0, SMath.Min(SMath.Abs(pivx - minx), SMath.Abs(maxx - pivx))) <= DOUBLE_EPS3) pivx = (minx + maxx) * 0.5;
-                if (SMath.Min(SMath.Abs(pivx - minx), SMath.Abs(maxx - pivx)) <= DOUBLE_EPS3) break;
+                var dpl = Max(p - minp, 0);
+                var dph = Max(maxp - p, 0);
+                pivx = minx + Max(Min(dpl / (dpl + dph), 0.9375), 0.0625) * (maxx - minx);
+                if (Max(0, Min(Abs(pivx - minx), Abs(maxx - pivx))) <= EPS3) pivx = (minx + maxx) * 0.5;
+                if (Min(Abs(pivx - minx), Abs(maxx - pivx)) <= EPS3) break;
                 var pivp = IBetaLogit(a, b, pivx);
-                if (SMath.Abs(p - pivp) <= DOUBLE_EPS3) break;
+                if (Abs(p - pivp) <= EPS3) break;
                 if (pivp < p)
                 {
                     minx = pivx;
@@ -887,17 +900,21 @@ namespace MyShogi.Model.Common.Math
         /// <summary>
         /// 収束条件
         /// </summary>
-        public const double DOUBLE_EPS3 = double.Epsilon * 3;
+        public const double EPS3 = SpecialFunc.EPS3;
         public const double Elo_logit_mul = SpecialFunc.LN10 / 400;
         public const double Elo_logit_imul = 400 / SpecialFunc.LN10;
+
+        private const double PositiveInfinity = double.PositiveInfinity;
+        private const double NegativeInfinity = double.NegativeInfinity;
+        private static bool IsNaN(double x) => double.IsNaN(x);
 
         public static double WinRate2Elo(double winrate)
             => Elo_logit_imul * SpecialFunc.EnLogit(winrate);
         public static double Elo2WinRate(double elo)
-            // => 1 / (1 + SMath.Pow(10, elo / -400));
-            => SpecialFunc.DeLogit(Elo_logit_mul* elo);
+            // => 1 / (1 + Pow(10, elo / -400));
+            => SpecialFunc.DeLogit(Elo_logit_mul * elo);
         public static double Elo2LossRate(double elo)
-            // => 1 / (1 + SMath.Pow(10, elo / 400));
+            // => 1 / (1 + Pow(10, elo / 400));
             => SpecialFunc.DeLogit(-Elo_logit_mul * elo);
 
         public static double IBeta_Elo(double a, double b, double elo)
@@ -928,8 +945,8 @@ namespace MyShogi.Model.Common.Math
             /// <param name="hElo">レーティング差・上側確率のパーセント点</param>
             public RateInterval(double lElo, double hElo)
             {
-                LowElo = double.IsNaN(lElo) ? double.NegativeInfinity : lElo;
-                HighElo = double.IsNaN(hElo) ? double.PositiveInfinity : hElo;
+                LowElo = IsNaN(lElo) ? NegativeInfinity : lElo;
+                HighElo = IsNaN(hElo) ? PositiveInfinity : hElo;
                 LowWin = Elo2WinRate(LowElo);
                 LowLoss = Elo2LossRate(LowElo);
                 HighWin = Elo2WinRate(HighElo);
