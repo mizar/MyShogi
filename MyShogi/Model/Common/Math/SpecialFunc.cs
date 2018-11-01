@@ -655,6 +655,18 @@ namespace MyShogi.Model.Common.Math
             return ms;
         }
 
+        /// b < 40, x < .7
+        private static double IBeta_BDOWN_BPSER(double a, double b, Logit logit)
+        {
+            if (b > 1)
+            {
+                var n = (int)Ceiling(b) - 1;
+                var bn = b - n;
+                return IBeta_BPSER(a, bn, logit) + Exp(logit.LogPx * a + logit.LogNx * bn - BetaLn(a, bn) + IBeta_BMod(a, bn, n, logit)) / bn;
+            }
+            return IBeta_BPSER(a, b, logit);
+        }
+
         /// <summary>
         /// * min(a, b) > 1, b < 40, bx <= .7
         /// </summary>
@@ -666,8 +678,8 @@ namespace MyShogi.Model.Common.Math
         {
             var logx = logit.LogPx;
             var x = logit.Px;
-            double t = 1;
-            var s = 1 / a;
+            var t = 1.0;
+            var s = 1.0 / a;
 
             for (var j = 1; j < 1000; ++j)
             {
