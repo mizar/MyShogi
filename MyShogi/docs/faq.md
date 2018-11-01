@@ -88,11 +88,11 @@
 - ソフトを再インストールしてみてください。再インストールしても起動しない場合は、
   設定ファイルが何らかの理由により破損した可能性が高いです。設定ファイルを削除してみてください。
   - 設定ファイルは、『将棋神やねうら王』の場合、インストール先のフォルダ配下にある以下の2つのファイルです。
-    - 画面設定     : "MyShogi.setting.xml"
-    - エンジン設定 : "MyShogi.engine.xml"
+    - 画面設定     : `MyShogi.setting.xml`
+    - エンジン設定 : `MyShogi.engine.xml`
   - 見当たらない場合は、WindowsのVirtual Storeという機能で仮想化されていると思われるので、以下のようなフォルダを探してみてください。
     - Windows 10で『将棋神やねうら王』を標準のインストール先にインストールした場合の例)
-      "C:\Users\【ユーザー名】\AppData\Local\VirtualStore\Program Files (x86)\YaneuraOu2018"
+      `C:\Users\【ユーザー名】\AppData\Local\VirtualStore\Program Files (x86)\YaneuraOu2018`
 
 
 ### ソフト(GUI本体)は起動するのですが、エンジンが起動しなくなりました。
