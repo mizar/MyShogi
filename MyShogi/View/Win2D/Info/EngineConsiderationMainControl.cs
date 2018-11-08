@@ -262,7 +262,8 @@ namespace MyShogi.View.Win2D
 
                         // MultiPV用の表示に
                         ConsiderationInstance(0).ViewModel.EnableMultiPVComboBox = b;
-                        ConsiderationInstance(0).SortRanking = b;
+                        // 検討モードかつMultiPVが1以外の時は「R順」、さもなくば「着順」
+                        ConsiderationInstance(0).SortRanking = b && ConsiderationInstance(0).ViewModel.MultiPV != 1;
                     }
                     break;
 
@@ -294,7 +295,7 @@ namespace MyShogi.View.Win2D
                     if (!message.skipDisplay)
                         ConsiderationInstance(message.number).DisplayThinkEnd();
                     break;
-                    
+
                 case UsiEngineReportMessageType.UsiThinkReport:
 
                     if (!message.skipDisplay)
@@ -310,7 +311,7 @@ namespace MyShogi.View.Win2D
 
         /// <summary>
         /// 読み筋を積んでおくqueue。
-        /// 
+        ///
         /// EnqueueThinkReportMessage()とOnIdle()で用いる。
         /// </summary>
         private SynchronizedList<UsiThinkReportMessage> thinkQuque = new SynchronizedList<UsiThinkReportMessage>();
@@ -338,13 +339,13 @@ namespace MyShogi.View.Win2D
         /// 読み筋を表示するコントロールのinstanceを返す。
         /// </summary>
         /// <param name="n">
-        /// 
+        ///
         /// n = 0 : 先手用
         /// n = 1 : 後手用
-        /// 
+        ///
         /// ただし、SetEngineInstanceNumber(1)と設定されていれば、
         /// 表示されているのは1つのみであり、先手用のほうしかない。
-        /// 
+        ///
         /// </param>
         /// <returns></returns>
         public EngineConsiderationControl ConsiderationInstance(int n)
