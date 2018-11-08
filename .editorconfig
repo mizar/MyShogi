@@ -23,6 +23,10 @@ insert_final_newline = true
 [*.{csproj,xml,xslt}]
 insert_final_newline = false
 
+# Windows files
+[*.{bat,cmd}]
+end_of_line = crlf
+
 ###############################
 # Dotnet Code Style Settings
 # See https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
